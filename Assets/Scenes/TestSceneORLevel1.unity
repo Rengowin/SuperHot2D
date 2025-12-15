@@ -4916,6 +4916,9 @@ MonoBehaviour:
   timeSpeedUp: 4
   timeSlowDown: 12
   minSpeed: 0.05
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!1001 &875560290
 PrefabInstance:
@@ -12727,4 +12730,7 @@ SceneRoots:
   - {fileID: 2061676512}
   - {fileID: 553064384}
   - {fileID: 913781510}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
