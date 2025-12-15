@@ -8,6 +8,12 @@ public class Enemy : MonoBehaviour
     int damage;
     //[SerializeField]
     //Weapon weapon;
+
+    float HP
+    {
+        get { return hp; }
+        set { hp = value;}
+    }
     void Start()
     {
         
