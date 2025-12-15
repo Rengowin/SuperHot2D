@@ -45,7 +45,7 @@ public class Movement : MonoBehaviour
         physics.ApplyMovement(input);
         physics.ApplyResistance(input);
         physics.CapSpeed();
-        //Debug.Log($"Input: {input}, Velocity: {rb.linearVelocity}");
+        Debug.Log($"Input: {input}, Velocity: {rb.linearVelocity}");
     }
 
     public void TriggerImpulse(Vector3 direction)
