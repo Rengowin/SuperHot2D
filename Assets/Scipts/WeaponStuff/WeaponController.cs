@@ -43,7 +43,6 @@ public class WeaponController : MonoBehaviour
             // Attack ausführen
             Current.attack();
 
-            // NEU: Raycast-Damage nur bei Range Waffen testen
             if (Current is Range)
             {
                 TryRaycastDamage();
@@ -91,8 +90,6 @@ public class WeaponController : MonoBehaviour
 
         currentIndex = index;
 
-        //Init bei jedem Waffenwechsel (setzt z.B. ammo voll)
-        Current.Init();
 
         Debug.Log($"Equipped: {Current.GetType().Name} (Slot {currentIndex + 1})");
     }
