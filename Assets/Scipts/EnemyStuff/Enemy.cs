@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -23,5 +24,13 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public Action onDeath;
+
+    public void Die()
+    {
+        onDeath?.Invoke();
+        Destroy(gameObject);
     }
 }
