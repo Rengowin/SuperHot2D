@@ -5,12 +5,21 @@ public abstract class Weapon
 {
     [Header("Waepon Stats")]
     [SerializeField]
-    float damage;
+    protected float damage;
     [SerializeField]
-    float range;
+    protected float range;
     [SerializeField]
-    float attackCooldown;
+    protected float attackCooldown;
+    [SerializeField]
+    protected float lastAttackTime;
 
+    public float Damage { get { return damage; } }
+    public float Range { get { return range; } }
+
+    public virtual void Init()
+    {
+        lastAttackTime = -attackCooldown;
+    }
 
     public abstract bool canAttack();
 

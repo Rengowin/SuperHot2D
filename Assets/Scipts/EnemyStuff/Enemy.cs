@@ -9,10 +9,16 @@ public class Enemy : MonoBehaviour
 
 
     //we could add if contions for to low values like hp below 0 to this or if dmg would go below 1
-    float HP
+    public float HP
     {
         get { return hp; }
-        set { hp = value;}
+        set { hp = value;
+            Debug.Log($"Enemy HP set to: {hp}");
+            if (hp <= 0)
+            {
+                Die();
+            }
+        }
     }
 
     float MovementSpeed
@@ -46,5 +52,11 @@ public class Enemy : MonoBehaviour
         Damage = damage;
 
         //this.weapon = weapon;
+    }
+
+    public void Die()
+    {
+        Debug.Log("Enemy died");
+        Destroy(this.gameObject);
     }
 }
