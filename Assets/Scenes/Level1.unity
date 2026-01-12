@@ -131,7 +131,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373928288}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 361a4f1a3fad58849b976fffd04d8a89, type: 3}
   m_Name: 
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectileTimeTestMover
   minLocalTimeScale: 0.4
   direction: {x: 1, y: 0, z: 0}
-  speed: 10
+  speed: 4
   distance: 10
 --- !u!1 &1044315116 stripped
 GameObject:
@@ -493,11 +493,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7702472937718792590, guid: 57b4670b66587ee4d90e1efc2c7128ff, type: 3}
       propertyPath: speed
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7702472937718792590, guid: 57b4670b66587ee4d90e1efc2c7128ff, type: 3}
       propertyPath: distance
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7702472937718792590, guid: 57b4670b66587ee4d90e1efc2c7128ff, type: 3}
       propertyPath: minLocalTimeScale

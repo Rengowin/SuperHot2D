@@ -42,27 +42,32 @@ public class WaveManager : MonoBehaviour
         Wave wave = waves[currentWaveIndex];
 
         for (int i = 0; i < wave.enemyCount; i++)
-        {
-            SpawnEnemy(wave.enemyPrefab);
-            yield return new WaitForSeconds(wave.spawnDelay);
-        }
+{
+    SpawnEnemy(wave);
+    yield return new WaitForSeconds(wave.spawnDelay);
+}
 
         isSpawning = false;
     }
 
-    void SpawnEnemy(GameObject prefab)
+    void SpawnEnemy(Wave wave)
+{
+    Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+    GameObject enemyObj = Instantiate(
+        wave.enemyPrefab,
+        spawnPoint.position,
+        spawnPoint.rotation
+    );
+
+    enemiesAlive++;
+
+    Enemy enemy = enemyObj.GetComponent<Enemy>();
+    if (enemy != null)
     {
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        GameObject enemy = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
-
-        enemiesAlive++;
-
-        Enemy enemyScript = enemy.GetComponent<Enemy>();
-        if (enemyScript != null)
-        {
-            enemyScript.onDeath += OnEnemyKilled;
-        }
+        enemy.Init(wave.enemySpawnInfos);
+        enemy.onDeath += OnEnemyKilled;
     }
+}
 
     void OnEnemyKilled()
     {
