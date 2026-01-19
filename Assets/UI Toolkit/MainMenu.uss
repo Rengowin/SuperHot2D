@@ -5,34 +5,77 @@
     align-items: center;
     justify-content: center;
     background-image: url("project://database/Assets/UI%20Toolkit/Textures/bg2.png?fileID=2800000&guid=3c024cc6a03011e468536fa9fe6ceb21&type=3#bg2");
-}
-
-.bun-top:hover {
-    scale: 1.1;
-    color: rgb(178, 48, 48);
-    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/Fonts/jejuhallasan/JejuHallasan-Regular.ttf?fileID=12800000&guid=74c0dd7c193e1564785019d0be83b635&type=3#JejuHallasan-Regular");
-    font-size: 280px;
-}
-
-.settings-btn:hover {
-    scale: 1.1;
-    color: rgb(0, 0, 0);
-    background-color: rgb(190, 91, 91);
-}
-
-.bun-bottom:hover {
-    scale: 1.1;
-    color: rgb(255, 255, 255);
+    cursor: url("project://database/Assets/UI%20Toolkit/Textures/knife.png?fileID=2800000&guid=57a2beade5afbcd4f9e2dc410fab6292&type=3#knife");
 }
 
 .bun-top {
     background-image: url("project://database/Assets/UI%20Toolkit/Textures/bun-top1.png?fileID=2800000&guid=80715bdaf6f93c345b6d2ea25a0f7924&type=3#bun-top1");
+    transition-duration: 0.5s;
+    transition-property: all;
 }
 
 .settings-btn {
     background-image: url("project://database/Assets/UI%20Toolkit/Textures/bun-mid1.png?fileID=2800000&guid=b7ff6dc9ab5bef841a91978c285f06d7&type=3#bun-mid1");
+    transition-duration: 0.4s;
+    cursor: url("project://database/Assets/UI%20Toolkit/Textures/knife.png?fileID=2800000&guid=57a2beade5afbcd4f9e2dc410fab6292&type=3#knife");
 }
 
 .bun-bottom {
     background-image: url("project://database/Assets/UI%20Toolkit/Textures/bun-bot1.png?fileID=2800000&guid=a3dbc603db0a27f4cac3e912884cbd82&type=3#bun-bot1");
+    transition-duration: 0.8s;
+}
+
+.settings-btn:hover {
+    scale: 1.1;
+    transition-property: scale, -unity-background-image-tint-color, rotate, rotate;
+    transition-duration: 0.2s, 0.3s, 1s, 0s;
+    -unity-background-image-tint-color: rgb(207, 30, 22);
+    -unity-text-outline-width: 15px;
+    -unity-text-outline-color: rgb(44, 23, 10);
+    rotate: 2grad;
+    translate: 0 0;
+    text-shadow: 0 0 0 rgb(106, 164, 119);
+}
+
+.bun1:hover {
+    scale: 1.1;
+    transition-property: scale, -unity-text-outline-color, -unity-background-image-tint-color;
+    transition-duration: 0.3s, 0.5s, 0.6s;
+    -unity-text-outline-color: rgb(224, 172, 109);
+    -unity-text-outline-width: 20px;
+    -unity-background-image-tint-color: rgb(152, 129, 112);
+    -unity-text-align: lower-center;
+    flex-direction: column;
+    transition-timing-function: ease, ease, ease;
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+    translate: 0 -50px;
+}
+
+.bun2:hover {
+    scale: 1.1;
+    transition-property: scale, -unity-text-outline-color, -unity-background-image-tint-color;
+    transition-duration: 0.3s, 0.5s, 0.6s;
+    -unity-text-outline-color: rgb(224, 172, 109);
+    -unity-text-outline-width: 20px;
+    -unity-background-image-tint-color: rgb(152, 129, 112);
+    -unity-text-align: upper-center;
+    flex-direction: column;
+    transition-timing-function: ease, ease, ease;
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+    translate: 0 50px;
+}
+
+.unity-button {
+    cursor: url("project://database/Assets/UI%20Toolkit/Textures/knife.png?fileID=2800000&guid=57a2beade5afbcd4f9e2dc410fab6292&type=3#knife");
+}
+
+.text {
+    cursor: url("project://database/Assets/UI%20Toolkit/Textures/knife.png?fileID=2800000&guid=57a2beade5afbcd4f9e2dc410fab6292&type=3#knife");
+}
+
+.eye:hover {
+    rotate: 360deg;
+    transition-property: rotate;
+    transition-duration: 1s;
+    cursor: url("project://database/Assets/UI%20Toolkit/Textures/knife.png?fileID=2800000&guid=57a2beade5afbcd4f9e2dc410fab6292&type=3#knife");
 }
