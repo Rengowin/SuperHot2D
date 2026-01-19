@@ -40,7 +40,7 @@ public class WeaponController : MonoBehaviour
         // Attack auf Linksklick
         if (Input.GetMouseButtonDown(0))
         {
-            // Attack ausführen
+            // Attack ausfÃ¼hren
             Current.attack();
 
             // NEU: Raycast-Damage nur bei Range Waffen testen
@@ -112,7 +112,7 @@ public class WeaponController : MonoBehaviour
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, rayDistance))
         {
-            // Fürs Testen: dummy fest, passt für dich
+            // FÃ¼rs Testen: dummy fest, passt fÃ¼r dich
             if (dummy != null)
             {
                 dummy.HP -= Current.Damage;

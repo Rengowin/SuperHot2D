@@ -1,75 +1,50 @@
 using UnityEngine;
-using System;
 
 public class Enemy : MonoBehaviour
 {
-[Header("Stats")]
-    [SerializeField] private float hp;
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float damage;
+    [SerializeField]
+    float hp, movementSpeed, damage;
+    //[SerializeField]
+    //Weapon weapon;
 
-    [Header("Weapon")]
-    [SerializeField] private Weapon weapon;
 
-    public Action onDeath;
-
-    // --- Properties (internal use) ---
-    float HP
+    //we could add if contions for to low values like hp below 0 to this or if dmg would go below 1
+    public float HP
     {
         get { return hp; }
-        set { hp = Mathf.Max(0, value); }
+        set { hp = value;
+            Debug.Log($"Enemy HP set to: {hp}");
+            if (hp <= 0)
+            {
+                Die();
+            }
+        }
     }
 
     float MovementSpeed
     {
         get { return movementSpeed; }
-        set { movementSpeed = Mathf.Max(0, value); }
+        set { movementSpeed = value; }
     }
 
     float Damage
     {
         get { return damage; }
-        set { damage = Mathf.Max(1, value); }
+        set { damage = value; }
     }
 
-    // --- Initialization from EnemySpawnInfos ---
-    public void Init(EnemySpawnInfos infos)
+
+    void Start()
     {
-        HP = infos.HP;
-        MovementSpeed = infos.MovementSpeed;
-        Damage = infos.Damage;
-        weapon = infos.Weapon;
-
-        EquipWeapon();
+        
     }
 
-    void EquipWeapon()
+    // Update is called once per frame
+    void Update()
     {
-        if (weapon == null)
-            return;
-
-        Weapon spawnedWeapon = Instantiate(weapon, transform);
-        // Optional:
-        // spawnedWeapon.SetOwner(this);
-        // spawnedWeapon.SetDamage(Damage);
+        
     }
 
-    public void TakeDamage(float amount)
-    {
-        HP -= amount;
-
-        if (HP <= 0)
-            Die();
-    }
-
-    public void Die()
-    {
-        onDeath?.Invoke();
-        Destroy(gameObject);
-    }
-
-    /* we can use the equip weapon above
-    
     public void init(float hp, float movementSpeed, int damage, Weapon weapon)
     {
         HP = hp;
@@ -77,5 +52,11 @@ public class Enemy : MonoBehaviour
         Damage = damage;
 
         //this.weapon = weapon;
-    }*/ 
+    }
+
+    public void Die()
+    {
+        Debug.Log("Enemy died");
+        Destroy(this.gameObject);
+    }
 }

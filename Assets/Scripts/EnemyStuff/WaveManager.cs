@@ -42,34 +42,44 @@ public class WaveManager : MonoBehaviour
         Wave wave = waves[currentWaveIndex];
 
         for (int i = 0; i < wave.enemyCount; i++)
-{
-    SpawnEnemy(wave);
-    yield return new WaitForSeconds(wave.spawnDelay);
-}
+        {
+            SpawnEnemy(wave);
+            yield return new WaitForSeconds(wave.spawnDelay);
+        }
 
         isSpawning = false;
     }
 
     void SpawnEnemy(Wave wave)
-{
-    Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-    GameObject enemyObj = Instantiate(
-        wave.enemyPrefab,
-        spawnPoint.position,
-        spawnPoint.rotation
-    );
-
-    enemiesAlive++;
-
-    Enemy enemy = enemyObj.GetComponent<Enemy>();
-    if (enemy != null)
     {
-        enemy.Init(wave.enemySpawnInfos);
-        enemy.onDeath += OnEnemyKilled;
-    }
-}
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        GameObject enemyObj = Instantiate(
+            wave.enemyPrefab,
+            spawnPoint.position,
+            spawnPoint.rotation
+        );
 
-    void OnEnemyKilled()
+        enemiesAlive++;
+
+        Enemy enemy = enemyObj.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            // Match YOUR Enemy API
+            enemy.init(
+            wave.spawnInfos.HP,
+            wave.spawnInfos.MovementSpeed,
+            (int)wave.spawnInfos.Damage,
+            wave.spawnInfos.Weapon
+        );
+
+        }
+
+        // Attach death listener
+        EnemyDeathListener listener = enemyObj.AddComponent<EnemyDeathListener>();
+        listener.Init(this);
+    }
+
+    public void OnEnemyKilled()
     {
         enemiesAlive--;
 

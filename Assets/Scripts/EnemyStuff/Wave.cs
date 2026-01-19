@@ -4,7 +4,7 @@ using UnityEngine;
 public class Wave
 {
     public GameObject enemyPrefab;
-    public EnemySpawnInfos enemySpawnInfos;
+    public EnemySpawnInfos spawnInfos;
     public int enemyCount;
     public float spawnDelay;
 }
