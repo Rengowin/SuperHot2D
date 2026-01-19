@@ -1,19 +1,17 @@
 using UnityEngine;
+using System;
 
 public class EnemyDeathListener : MonoBehaviour
 {
-    private WaveManager waveManager;
+    private Action onDestroyed;
 
-    public void Init(WaveManager manager)
+    public void Init(Action onDestroyedCallback)
     {
-        waveManager = manager;
+        onDestroyed = onDestroyedCallback;
     }
 
     void OnDestroy()
     {
-        if (waveManager != null)
-        {
-            waveManager.OnEnemyKilled();
-        }
+        onDestroyed?.Invoke();
     }
 }

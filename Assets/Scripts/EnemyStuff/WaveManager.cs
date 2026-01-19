@@ -7,7 +7,9 @@ public class WaveManager : MonoBehaviour
 {
     [Header("Waves")]
     public List<Wave> waves = new List<Wave>();
-    public Transform[] spawnPoints;
+
+    [Header("Spawner")]
+    [SerializeField] private EnemySpawnManager spawnManager;
 
     [Header("Timing")]
     public float timeBetweenWaves = 2f;
@@ -18,76 +20,52 @@ public class WaveManager : MonoBehaviour
     public UnityEvent onAllWavesComplete;
 
     private int currentWaveIndex = 0;
-    private int enemiesAlive = 0;
-    private bool isSpawning = false;
+
+    // Track this wave
+    private int aliveThisWave = 0;
+    private bool spawnFinished = false;
 
     void Start()
     {
-        StartCoroutine(StartNextWave());
+        if (spawnManager == null)
+            spawnManager = FindFirstObjectByType<EnemySpawnManager>();
+
+        StartCoroutine(RunWaves());
     }
 
-    IEnumerator StartNextWave()
+    IEnumerator RunWaves()
     {
-        if (currentWaveIndex >= waves.Count)
+        while (currentWaveIndex < waves.Count)
         {
-            onAllWavesComplete?.Invoke();
-            yield break;
-        }
+            yield return new WaitForSeconds(timeBetweenWaves);
 
-        yield return new WaitForSeconds(timeBetweenWaves);
+            onWaveStart?.Invoke();
 
-        onWaveStart?.Invoke();
-        isSpawning = true;
+            Wave wave = waves[currentWaveIndex];
+            aliveThisWave = wave.enemyCount;
+            spawnFinished = false;
 
-        Wave wave = waves[currentWaveIndex];
+            // Tell spawn manager to spawn this wave (count + delay)
+            spawnManager.RunWave(
+                wave.enemyCount,
+                wave.spawnDelay,
+                OnEnemyDied,
+                () => spawnFinished = true
+            );
 
-        for (int i = 0; i < wave.enemyCount; i++)
-        {
-            SpawnEnemy(wave);
-            yield return new WaitForSeconds(wave.spawnDelay);
-        }
+            // Wait until spawner finished spawning AND all enemies died
+            while (!spawnFinished || aliveThisWave > 0)
+                yield return null;
 
-        isSpawning = false;
-    }
-
-    void SpawnEnemy(Wave wave)
-    {
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        GameObject enemyObj = Instantiate(
-            wave.enemyPrefab,
-            spawnPoint.position,
-            spawnPoint.rotation
-        );
-
-        enemiesAlive++;
-
-        Enemy enemy = enemyObj.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            // Match YOUR Enemy API
-            enemy.init(
-            wave.spawnInfos.HP,
-            wave.spawnInfos.MovementSpeed,
-            (int)wave.spawnInfos.Damage,
-            wave.spawnInfos.Weapon
-        );
-
-        }
-
-        // Attach death listener
-        EnemyDeathListener listener = enemyObj.AddComponent<EnemyDeathListener>();
-        listener.Init(this);
-    }
-
-    public void OnEnemyKilled()
-    {
-        enemiesAlive--;
-
-        if (enemiesAlive <= 0 && !isSpawning)
-        {
-            currentWaveIndex++;
             onWaveComplete?.Invoke();
-            StartCoroutine(StartNextWave());
+            currentWaveIndex++;
         }
+
+        onAllWavesComplete?.Invoke();
+    }
+
+    private void OnEnemyDied()
+    {
+        aliveThisWave = Mathf.Max(0, aliveThisWave - 1);
     }
 }

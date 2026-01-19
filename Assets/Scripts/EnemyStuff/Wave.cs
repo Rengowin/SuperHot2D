@@ -3,8 +3,6 @@ using UnityEngine;
 [System.Serializable]
 public class Wave
 {
-    public GameObject enemyPrefab;
-    public EnemySpawnInfos spawnInfos;
-    public int enemyCount;
-    public float spawnDelay;
+    public int enemyCount;        // how many enemies in this wave
+    public float spawnDelay;      // time between spawns
 }
