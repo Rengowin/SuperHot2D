@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 7702472937718792590}
   - component: {fileID: 3013712653122289036}
   - component: {fileID: 4421639587355199525}
+  - component: {fileID: 8315580600562811910}
+  - component: {fileID: 2987793722126668683}
   m_Layer: 0
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -172,3 +174,34 @@ MonoBehaviour:
   player: {fileID: 0}
   speed: 5
   minDistanceToPlayer: 1.5
+--- !u!114 &8315580600562811910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750686513949300021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7697b36ba75b949ad6115868cb65b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMover
+  minLocalTimeScale: 0.1
+  player: {fileID: 0}
+  speed: 5
+  minDistanceToPlayer: 1.5
+--- !u!114 &2987793722126668683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750686513949300021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 923c0dec4ab91434889deaa3e923a1a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  hp: 0
+  movementSpeed: 3
+  damage: 0
