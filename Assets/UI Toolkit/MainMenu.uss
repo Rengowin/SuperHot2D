@@ -1,0 +1,38 @@
+.root {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url("project://database/Assets/UI%20Toolkit/Textures/bg2.png?fileID=2800000&guid=3c024cc6a03011e468536fa9fe6ceb21&type=3#bg2");
+}
+
+.bun-top:hover {
+    scale: 1.1;
+    color: rgb(178, 48, 48);
+    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/Fonts/jejuhallasan/JejuHallasan-Regular.ttf?fileID=12800000&guid=74c0dd7c193e1564785019d0be83b635&type=3#JejuHallasan-Regular");
+    font-size: 280px;
+}
+
+.settings-btn:hover {
+    scale: 1.1;
+    color: rgb(0, 0, 0);
+    background-color: rgb(190, 91, 91);
+}
+
+.bun-bottom:hover {
+    scale: 1.1;
+    color: rgb(255, 255, 255);
+}
+
+.bun-top {
+    background-image: url("project://database/Assets/UI%20Toolkit/Textures/bun-top1.png?fileID=2800000&guid=80715bdaf6f93c345b6d2ea25a0f7924&type=3#bun-top1");
+}
+
+.settings-btn {
+    background-image: url("project://database/Assets/UI%20Toolkit/Textures/bun-mid1.png?fileID=2800000&guid=b7ff6dc9ab5bef841a91978c285f06d7&type=3#bun-mid1");
+}
+
+.bun-bottom {
+    background-image: url("project://database/Assets/UI%20Toolkit/Textures/bun-bot1.png?fileID=2800000&guid=a3dbc603db0a27f4cac3e912884cbd82&type=3#bun-bot1");
+}
