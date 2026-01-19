@@ -13,6 +13,8 @@ public class RocketLauncher : Range
         Init();
     }
 
+    public float BlastRadius => blastRadius;
+
     public override void Shoot()
     {
         Debug.Log("Shooting the rocket!");
