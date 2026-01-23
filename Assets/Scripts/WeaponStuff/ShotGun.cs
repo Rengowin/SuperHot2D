@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Bullet;
 public class ShotGun : Range
 {
     float bulletcount;
@@ -17,10 +18,17 @@ public class ShotGun : Range
     public int Pellets => Mathf.Max(1, Mathf.RoundToInt(bulletcount));
     public float SpreadAngle => spreadAngle;
 
-    public override void Shoot()
+    public override void Shoot(Vector3 aimDir)
     {
-        Debug.Log("Shooting the shotgun!");
-        Debug.Log($"Bullets fired: {bulletcount}");
+        var init = new BulletInit
+        {
+            damage = damage,
+            speed = 50f,
+            maxDistance = range,
+            explosive = false
+        };
+
+        SpawnBullet(aimDir, projectilePrefab, init);
     }
 
 

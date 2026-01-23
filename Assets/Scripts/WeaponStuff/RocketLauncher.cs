@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Bullet;
 public class RocketLauncher : Range
 {
     float blastRadius;
@@ -15,9 +16,19 @@ public class RocketLauncher : Range
 
     public float BlastRadius => blastRadius;
 
-    public override void Shoot()
+    public override void Shoot(Vector3 aimDir)
     {
-        Debug.Log("Shooting the rocket!");
-        Debug.Log($"Blast radius: {blastRadius}");
+        var init = new BulletInit
+        {
+            damage = damage,
+            speed = 25f,
+            maxDistance = range,
+            explosive = true,
+            explosionRadius = blastRadius,
+            explosionDamage = damage
+        };
+
+        SpawnBullet(aimDir, projectilePrefab, init);
     }
+
 }

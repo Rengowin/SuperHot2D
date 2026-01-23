@@ -2,34 +2,75 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [Header("Lifetime")]
-    [SerializeField] private float lifeTime = 2f;
+    public float range;
+    public float speed;
+    public float damage;
+    public bool isExplosive;
+    public float explosionRadius;
+    public float explosionDamage;
 
-    [Header("Explosion (optional)")]
-    public bool isExplosive = false;
-    public float explosionRadius = 3f;
-    public float explosionDamage = 20f;
+    Vector3 startPos;
+    Rigidbody rb;
 
-    private void Start()
+    void Start()
     {
-        Destroy(gameObject, lifeTime);
+        rb = GetComponent<Rigidbody>();
+        startPos = transform.position;
+    }
+
+
+    public struct BulletInit
+    {
+        public float damage;
+        public float speed;
+        public float maxDistance;
+
+        public bool explosive;
+        public float explosionRadius;
+        public float explosionDamage;
+    }
+
+    public void Init(BulletInit init, Vector3 dir)
+    {
+        rb = GetComponent<Rigidbody>();
+        startPos = transform.position;
+
+        damage = init.damage;
+        speed = init.speed;
+        range = init.maxDistance;
+        isExplosive = init.explosive;
+        explosionRadius = init.explosionRadius;
+        explosionDamage = init.explosionDamage;
+
+        Launch(dir);
+    }
+
+
+    public void Launch(Vector3 dir)
+    {
+        if (rb != null) rb.linearVelocity = dir.normalized * speed;
+    }
+
+    void Update()
+    {
+        if (Vector3.Distance(startPos, transform.position) >= range)
+            Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Bullet hit: " + collision.collider.name);
+        var enemy = collision.collider.GetComponentInParent<Enemy>();
+        if (enemy != null && !isExplosive)
+            enemy.HP -= damage;
 
-        if (isExplosive)
-        {
-            Explode();
-        }
-
+        if (isExplosive) Explode();
         Destroy(gameObject);
     }
 
     void Explode()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
+        explosionDamage = damage/2;
 
         var damaged = new System.Collections.Generic.HashSet<Enemy>();
         SpawnExplosionLight();
