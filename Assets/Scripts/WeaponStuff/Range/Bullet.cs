@@ -70,7 +70,6 @@ public class Bullet : MonoBehaviour
     void Explode()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
-        explosionDamage = damage/2;
 
         var damaged = new System.Collections.Generic.HashSet<Enemy>();
         SpawnExplosionLight();

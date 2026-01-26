@@ -5,7 +5,13 @@ public class PlayerWeaponDriver : MonoBehaviour
     [SerializeField] private WeaponController weapons;
     [SerializeField] private Camera cam;
     [SerializeField] private Transform muzzle;
-    [SerializeField] private float aimPlaneY = 0f; // Bodenhöhe
+    [SerializeField] private float aimPlaneY = 0f;
+
+    void Start()
+    {
+        if (!weapons) weapons = GetComponent<WeaponController>();
+        if (weapons && muzzle) weapons.SetShootMuzzle(muzzle);
+    }
 
     void Update()
     {

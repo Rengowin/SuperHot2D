@@ -2,7 +2,7 @@ using UnityEngine;
 using static Bullet;
 public class RocketLauncher : Range
 {
-    float blastRadius;
+    float explosionRadius;
 
     public RocketLauncher(float damage, float range, float attackCooldown, float maxAmmo, float blastRadius)
     {
@@ -10,11 +10,21 @@ public class RocketLauncher : Range
         this.range = range;
         this.attackCooldown = attackCooldown;
         this.maxAmmo = maxAmmo;
-        this.blastRadius = blastRadius;
+        this.explosionRadius = blastRadius;
         Init();
     }
 
-    public float BlastRadius => blastRadius;
+    public RocketLauncher(WeaponStats stats)
+    {
+        this.damage = stats.Damage;
+        this.range = stats.Range;
+        this.attackCooldown = stats.Cooldown;
+        this.maxAmmo = stats.Ammo;
+        this.explosionRadius = stats.ExplosionRadius;
+        Init();
+    }
+
+    public float BlastRadius => explosionRadius;
 
     public override void Shoot(Vector3 aimDir)
     {
@@ -24,11 +34,12 @@ public class RocketLauncher : Range
             speed = 25f,
             maxDistance = range,
             explosive = true,
-            explosionRadius = blastRadius,
-            explosionDamage = damage
+            explosionRadius = explosionRadius,
+            explosionDamage = damage / 2
         };
 
         SpawnBullet(aimDir, projectilePrefab, init);
     }
+
 
 }

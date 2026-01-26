@@ -3,35 +3,61 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    [Header("Loadout (temporär zum Testen)")]
-    [SerializeField] private int startIndex = 0;
-
-    [Header("Scene References")]
-    [SerializeField] private Transform muzzle;
+    [Header("Projectiles")]
     [SerializeField] private GameObject defaultBulletPrefab;
 
     [Header("Runtime")]
-    [SerializeField] private List<Weapon> weapons = new List<Weapon>();
+    [SerializeField] private int startIndex = 0;
+
+    private readonly List<Weapon> weapons = new List<Weapon>();
     private int currentIndex;
+
+    private Transform shootMuzzle;
+    private Transform meleeOrigin;
+
     private Vector3 aimDir = Vector3.forward;
 
     public Weapon Current => (weapons.Count > 0) ? weapons[currentIndex] : null;
 
-    void Start()
+    public void SetShootMuzzle(Transform t) => shootMuzzle = t;
+    public void SetMeleeOrigin(Transform t) => meleeOrigin = t;
+
+    public void SetAimDirection(Vector3 dir)
     {
-        weapons.Add(new Pistol(10, 200f, 1f, 15)); // (damage, range, cooldown, maxAmmo) – check deine Reihenfolge!
+        if (dir.sqrMagnitude > 0.0001f) aimDir = dir.normalized;
+    }
+
+    public void ClearWeapons()
+    {
+        weapons.Clear();
+        currentIndex = 0;
+    }
+
+    public void AddWeapon(Weapon w)
+    {
+        if (w == null) return;
+        weapons.Add(w);
+    }
+
+    public void Init()
+    {
+        if (weapons.Count == 0)
+        {
+            Debug.LogWarning($"{name}: No weapons assigned.");
+            return;
+        }
 
         currentIndex = Mathf.Clamp(startIndex, 0, weapons.Count - 1);
-
         Current?.Init();
         ApplyRuntimeRefs(Current);
     }
 
-
-    public void SetAimDirection(Vector3 dir)
+    public void EquipIndex(int index)
     {
-        if (dir.sqrMagnitude > 0.0001f)
-            aimDir = dir.normalized;
+        if (index < 0 || index >= weapons.Count) return;
+        currentIndex = index;
+        Current?.Init();
+        ApplyRuntimeRefs(Current);
     }
 
     public void PrimaryFire()
@@ -39,46 +65,33 @@ public class WeaponController : MonoBehaviour
         var w = Current;
         if (w == null) return;
 
-        if (w is Range r)
-        {
-            ApplyRuntimeRefs(r);
-            r.attack(aimDir);     // Range braucht aimDir
-        }
-        else
-        {
-            w.attack();           // Melee nutzt attack()
-        }
+        ApplyRuntimeRefs(w);
+
+        if (w is Range r) r.attack(aimDir);
+        else if (w is Melee m) m.attack();
+        else w.attack();
     }
 
     public void Reload()
     {
-        if (Current is Range r)
-            r.Reload();
-    }
-
-    public void EquipIndex(int index)
-    {
-        if (index < 0 || index >= weapons.Count) return;
-
-        currentIndex = index;
-        Current?.Init();
-        ApplyRuntimeRefs(Current);
+        if (Current is Range r) r.Reload();
     }
 
     private void ApplyRuntimeRefs(Weapon w)
     {
         if (w is Range r)
-            ApplyRuntimeRefs(r);
-    }
+        {
+            if (shootMuzzle == null)
+            {
+                Debug.LogWarning($"{name}: shootMuzzle not set. Using transform.");
+                shootMuzzle = transform;
+            }
 
-    private void ApplyRuntimeRefs(Range r)
-    {
-        // Muzzle setzen
-        if (r.Muzzel == null)
-            r.Muzzel = muzzle;
+            r.Muzzel = shootMuzzle;
 
-        // Bullet prefab setzen
-        if (r.ProjectilePrefab == null)
-            r.SetProjectilePrefab(defaultBulletPrefab);
+            if (r.ProjectilePrefab == null && defaultBulletPrefab != null)
+                r.SetProjectilePrefab(defaultBulletPrefab);
+        }
+
     }
 }
