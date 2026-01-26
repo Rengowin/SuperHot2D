@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    float MovementSpeed
+    public float MovementSpeed
     {
         get { return movementSpeed; }
         set { movementSpeed = value; }
