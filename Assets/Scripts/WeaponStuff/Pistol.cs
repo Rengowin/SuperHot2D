@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Bullet;
 public class Pistol : Range
 {
 
@@ -10,8 +11,18 @@ public class Pistol : Range
         this.maxAmmo = maxAmmo;
         Init();
     }
-    public override void Shoot()
+    public override void Shoot(Vector3 aimDir)
     {
-        Debug.Log("Shooting the pistol!");
+        var init = new BulletInit
+        {
+            damage = damage,
+            speed = 50f,
+            maxDistance = range,
+            explosive = false
+        };
+
+        SpawnBullet(aimDir, projectilePrefab, init);
     }
+
+
 }
