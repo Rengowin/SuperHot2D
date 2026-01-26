@@ -16,7 +16,7 @@ public class Pistol : Range
         var init = new BulletInit
         {
             damage = damage,
-            speed = 50f,
+            speed = 5f,
             maxDistance = range,
             explosive = false
         };

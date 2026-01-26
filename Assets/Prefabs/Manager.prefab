@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4128986500413976031}
   - component: {fileID: 4248063413937690265}
   - component: {fileID: 2508650644764648936}
+  - component: {fileID: 7230468288417770792}
+  - component: {fileID: 5846762471925711712}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -85,3 +87,34 @@ MonoBehaviour:
   - {fileID: 0}
   enemyContainer: {fileID: 0}
   maxEnemiesAlive: 10
+--- !u!114 &7230468288417770792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488172923128532384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bde07d23bacebb40a9b21871cd86ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController
+  startIndex: 0
+  muzzle: {fileID: 0}
+  defaultBulletPrefab: {fileID: 6870676309545179987, guid: b926ea9ad37897c479d3fc2715aef458, type: 3}
+--- !u!114 &5846762471925711712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488172923128532384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3fa06f0d43fc04783d484f5ca0d859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponDriver
+  weapons: {fileID: 7230468288417770792}
+  cam: {fileID: 0}
+  muzzle: {fileID: 0}
+  aimPlaneY: 0
