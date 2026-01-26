@@ -1,35 +1,55 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MainMenuController : MonoBehaviour
 {
-    void OnEnable()
+    [SerializeField] private string gameplaySceneName = "Level1";
+
+    void Awake()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        Debug.Log("[MainMenu] Awake running");
 
-        root.Q<VisualElement>("newGame")
-            .RegisterCallback<ClickEvent>(_ => StartGame());
+        var uiDoc = GetComponent<UIDocument>();
+        if (uiDoc == null)
+        {
+            Debug.LogError("[MainMenu] UIDocument missing on this GameObject!");
+            return;
+        }
 
-        root.Q<VisualElement>("settings")
-            .RegisterCallback<ClickEvent>(_ => OpenSettings());
+        var root = uiDoc.rootVisualElement;
 
-        root.Q<VisualElement>("exit")
-            .RegisterCallback<ClickEvent>(_ => Quit());
+        var newGameBtn = root.Q<Button>("NewGameButton");
+        var newGameLbl = root.Q<Label>("NewGame");
+        var settingsBtn = root.Q<Button>("SettingsButton");
+        var exitBtn = root.Q<Button>("ExitButton");
+
+        Debug.Log($"[MainMenu] Buttons found? newGame={newGameBtn != null}, settings={settingsBtn != null}, exit={exitBtn != null}");
+
+        if (newGameBtn != null) newGameBtn.clicked += StartGame;
+        if (newGameLbl != null) newGameLbl.RegisterCallback<ClickEvent>(_ => StartGame());
+        if (settingsBtn != null) settingsBtn.clicked += OpenSettings;
+        if (exitBtn != null) exitBtn.clicked += Quit;
     }
 
     void StartGame()
     {
-        SceneManager.LoadScene("Game");
+        Debug.Log($"[MainMenu] StartGame clicked -> loading scene '{gameplaySceneName}'");
+
+        // Print scenes in build (helps catch name mismatches)
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            string path = SceneUtility.GetScenePathByBuildIndex(i);
+            Debug.Log($"[MainMenu] BuildScene[{i}] = {path}");
+        }
+
+        SceneManager.LoadScene(gameplaySceneName);
     }
 
-    void OpenSettings()
-    {
-        Debug.Log("Settings");
-    }
-
-    void Quit()
-    {
-        Application.Quit();
+    void OpenSettings() => Debug.Log("[MainMenu] Settings clicked");
+    void Quit() 
+    { 
+        Debug.Log("[MainMenu] Exit clicked");  
+        Application.Quit(); 
     }
 }
