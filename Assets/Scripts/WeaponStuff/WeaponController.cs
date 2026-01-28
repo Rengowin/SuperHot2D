@@ -22,9 +22,9 @@ public class WeaponController : MonoBehaviour
     public void SetShootMuzzle(Transform t) => shootMuzzle = t;
     public void SetMeleeOrigin(Transform t) => meleeOrigin = t;
 
-    public void SetAimDirection(Vector3 dir)
+    public void SetAimDirection(Vector3 direction)
     {
-        if (dir.sqrMagnitude > 0.0001f) aimDir = dir.normalized;
+        if (direction.sqrMagnitude > 0.0001f) aimDir = direction.normalized;
     }
 
     public void ClearWeapons()
@@ -33,10 +33,10 @@ public class WeaponController : MonoBehaviour
         currentIndex = 0;
     }
 
-    public void AddWeapon(Weapon w)
+    public void AddWeapon(Weapon weapon)
     {
-        if (w == null) return;
-        weapons.Add(w);
+        if (weapon == null) return;
+        weapons.Add(weapon);
     }
 
     public void Init()
@@ -62,24 +62,24 @@ public class WeaponController : MonoBehaviour
 
     public void PrimaryFire()
     {
-        var w = Current;
-        if (w == null) return;
+        var weapon = Current;
+        if (weapon == null) return;
 
-        ApplyRuntimeRefs(w);
+        ApplyRuntimeRefs(weapon);
 
-        if (w is Range r) r.attack(aimDir);
-        else if (w is Melee m) m.attack();
-        else w.attack();
+        if (weapon is Range range) range.attack(aimDir);
+        else if (weapon is Melee melee) melee.attack();
+        else weapon.attack();
     }
 
     public void Reload()
     {
-        if (Current is Range r) r.Reload();
+        if (Current is Range range) range.Reload();
     }
 
-    private void ApplyRuntimeRefs(Weapon w)
+    private void ApplyRuntimeRefs(Weapon weapon)
     {
-        if (w is Range r)
+        if (weapon is Range range)
         {
             if (shootMuzzle == null)
             {
@@ -87,10 +87,20 @@ public class WeaponController : MonoBehaviour
                 shootMuzzle = transform;
             }
 
-            r.Muzzel = shootMuzzle;
+            range.Muzzel = shootMuzzle;
 
-            if (r.ProjectilePrefab == null && defaultBulletPrefab != null)
-                r.SetProjectilePrefab(defaultBulletPrefab);
+
+            if (range.ProjectilePrefab == null && defaultBulletPrefab != null)
+                range.SetProjectilePrefab(defaultBulletPrefab);
+        }
+        else if (weapon is Melee melee)
+        {
+            if (meleeOrigin == null)
+            {
+                Debug.LogWarning($"{name}: meleeOrigin not set. Using transform.");
+                meleeOrigin = transform;
+            }
+            melee.MeleeOrigin = meleeOrigin;
         }
 
     }

@@ -4,7 +4,7 @@ public class ShotGun : Range
 {
     float pelletCount;
     float spreadAngle;
-    public ShotGun(float bulletcount, float spreadAngle, float damage, float range, float attackCooldown, float maxAmmo)
+    public ShotGun(float bulletcount, float spreadAngle, float damage, float range, float attackCooldown, float maxAmmo, float bulletSpeed)
     {
         this.pelletCount = bulletcount;
         this.spreadAngle = spreadAngle;
@@ -12,6 +12,7 @@ public class ShotGun : Range
         this.range = range;
         this.attackCooldown = attackCooldown;
         this.maxAmmo = maxAmmo;
+        this.bulletSpeed = bulletSpeed;
         Init();
     }
 
@@ -23,6 +24,7 @@ public class ShotGun : Range
         this.range = stats.Range;
         this.attackCooldown = stats.Cooldown;
         this.maxAmmo = stats.Ammo;
+        this.bulletSpeed = stats.BulletSpeed;
         Init();
     }
 
@@ -46,7 +48,7 @@ public class ShotGun : Range
             var init = new BulletInit
             {
                 damage = damage,   // oder damage
-                speed = 50f,
+                speed = bulletSpeed,
                 maxDistance = range,
                 explosive = false
             };

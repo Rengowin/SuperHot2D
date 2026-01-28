@@ -2,6 +2,13 @@ using UnityEngine;
 
 public abstract class Melee : Weapon
 {
+    Transform meleeOrigin;
+
+    public Transform MeleeOrigin
+    {
+        get => meleeOrigin;
+        set => meleeOrigin = value;
+    }
     public override bool canAttack()
     {
         return Time.time >= lastAttackTime + attackCooldown;
@@ -20,4 +27,6 @@ public abstract class Melee : Weapon
     }
 
     public abstract void Swing(Vector3 aimDir);
+
+
 }

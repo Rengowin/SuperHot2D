@@ -262,6 +262,8 @@ GameObject:
   - component: {fileID: 401978954}
   - component: {fileID: 401978953}
   - component: {fileID: 401978952}
+  - component: {fileID: 401978958}
+  - component: {fileID: 401978959}
   m_Layer: 0
   m_Name: SchussDummy
   m_TagString: Untagged
@@ -281,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b8ba25de703e0498a9ef9f96742562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWeaponDriver
-  weapons: {fileID: 2004024693}
+  weapons: {fileID: 0}
   muzzle: {fileID: 1286045114}
   target: {fileID: 396013677}
   fireRange: 100
@@ -396,6 +398,45 @@ Transform:
   - {fileID: 1286045114}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &401978958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401978951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a92b60d1df9ec649ba0ba7b4cf2023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponLoadout
+  weapons: {fileID: 401978959}
+  weaponType: 0
+  weaponStats:
+    damage: 20
+    range: 200
+    cooldown: 1
+    ammo: 10
+    bulletSpeed: 1
+    pelletCount: 0
+    spread: 0
+    explosionRadius: 0
+    swingAngle: 0
+    thrustRadius: 0
+--- !u!114 &401978959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401978951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bde07d23bacebb40a9b21871cd86ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController
+  defaultBulletPrefab: {fileID: 6870676309545179987, guid: b926ea9ad37897c479d3fc2715aef458, type: 3}
+  startIndex: 0
 --- !u!1 &466871729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,6 +1158,8 @@ GameObject:
   - component: {fileID: 1729347938}
   - component: {fileID: 1729347937}
   - component: {fileID: 1729347939}
+  - component: {fileID: 1729347940}
+  - component: {fileID: 1729347941}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1341,10 +1384,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3fa06f0d43fc04783d484f5ca0d859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponDriver
-  weapons: {fileID: 2004024693}
+  weapons: {fileID: 0}
   cam: {fileID: 1729347938}
   muzzle: {fileID: 735673678}
   aimPlaneY: 0
+--- !u!114 &1729347940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729347930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a92b60d1df9ec649ba0ba7b4cf2023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponLoadout
+  weapons: {fileID: 1729347941}
+  weaponType: 0
+  weaponStats:
+    damage: 10
+    range: 200
+    cooldown: 1
+    ammo: 10
+    bulletSpeed: 20
+    pelletCount: 0
+    spread: 0
+    explosionRadius: 0
+    swingAngle: 0
+    thrustRadius: 0
+--- !u!114 &1729347941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729347930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bde07d23bacebb40a9b21871cd86ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController
+  defaultBulletPrefab: {fileID: 6870676309545179987, guid: b926ea9ad37897c479d3fc2715aef458, type: 3}
+  startIndex: 0
 --- !u!1 &1944902440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,58 +1556,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!1 &2004024692
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2004024694}
-  - component: {fileID: 2004024693}
-  m_Layer: 0
-  m_Name: WeaponController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2004024693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004024692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bde07d23bacebb40a9b21871cd86ca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponController
-  defaultBulletPrefab: {fileID: 6870676309545179987, guid: b926ea9ad37897c479d3fc2715aef458, type: 3}
-  startIndex: 0
---- !u!4 &2004024694
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004024692}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.82821, y: 0, z: 12.00001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 717320580}
-  - {fileID: 2004024694}
   - {fileID: 1729347936}
   - {fileID: 879225217}
   - {fileID: 466871734}

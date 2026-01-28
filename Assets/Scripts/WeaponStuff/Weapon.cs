@@ -14,11 +14,6 @@ public abstract class Weapon
     protected float lastAttackTime;
 
     protected Transform origin;
-    public Transform Origin
-    {
-        get => origin;
-        set => origin = value;
-    }
 
 
     public float Damage { get { return damage; } }

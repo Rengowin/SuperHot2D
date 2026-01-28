@@ -152,6 +152,9 @@ GameObject:
   - component: {fileID: 5417298472469191522}
   - component: {fileID: 8857576846361179576}
   - component: {fileID: 7053480015506188321}
+  - component: {fileID: 7664614000193741791}
+  - component: {fileID: 4862659042301478991}
+  - component: {fileID: 7922359816840255795}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -268,6 +271,7 @@ MonoBehaviour:
   maxSpeed: 6
   resistance: 5
   impulseStrength: 10
+  visual: {fileID: 0}
 --- !u!114 &8857576846361179576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,3 +316,58 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7664614000193741791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526437672555368646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3fa06f0d43fc04783d484f5ca0d859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponDriver
+  weapons: {fileID: 0}
+  cam: {fileID: 0}
+  muzzle: {fileID: 0}
+  aimPlaneY: 0
+--- !u!114 &4862659042301478991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526437672555368646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a92b60d1df9ec649ba0ba7b4cf2023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponLoadout
+  weapons: {fileID: 7922359816840255795}
+  weaponType: 0
+  weaponStats:
+    damage: 0
+    range: 0
+    cooldown: 0
+    ammo: 0
+    bulletSpeed: 0
+    pelletCount: 0
+    spread: 0
+    explosionRadius: 0
+    swingAngle: 0
+    thrustRadius: 0
+--- !u!114 &7922359816840255795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526437672555368646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bde07d23bacebb40a9b21871cd86ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController
+  defaultBulletPrefab: {fileID: 0}
+  startIndex: 0

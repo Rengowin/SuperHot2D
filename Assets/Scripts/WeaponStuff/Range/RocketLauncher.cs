@@ -4,13 +4,14 @@ public class RocketLauncher : Range
 {
     float explosionRadius;
 
-    public RocketLauncher(float damage, float range, float attackCooldown, float maxAmmo, float blastRadius)
+    public RocketLauncher(float damage, float range, float attackCooldown, float maxAmmo, float blastRadius, float bulletSpeed)
     {
         this.damage = damage;
         this.range = range;
         this.attackCooldown = attackCooldown;
         this.maxAmmo = maxAmmo;
         this.explosionRadius = blastRadius;
+        this.bulletSpeed = bulletSpeed;
         Init();
     }
 
@@ -21,6 +22,7 @@ public class RocketLauncher : Range
         this.attackCooldown = stats.Cooldown;
         this.maxAmmo = stats.Ammo;
         this.explosionRadius = stats.ExplosionRadius;
+        this.bulletSpeed = stats.BulletSpeed;
         Init();
     }
 
@@ -31,7 +33,7 @@ public class RocketLauncher : Range
         var init = new BulletInit
         {
             damage = damage,
-            speed = 25f,
+            speed = bulletSpeed,
             maxDistance = range,
             explosive = true,
             explosionRadius = explosionRadius,

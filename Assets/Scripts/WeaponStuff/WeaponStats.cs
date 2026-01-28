@@ -12,6 +12,8 @@ public class WeaponStats
     float cooldown;
     [SerializeField]
     int ammo;
+    [SerializeField]
+    float bulletSpeed;
 
     [Header("Special Attributes")]
     [Header("Shotgun Settings")]
@@ -32,12 +34,13 @@ public class WeaponStats
     [SerializeField]
     float thrustRadius;
 
-    public WeaponStats(float damage, float range, float cooldown, int ammo, int pelletCount = 0, float spread = 0f, float explosionRadius = 0f, float swingAngle = 0f, float thrustRadius = 0f)
+    public WeaponStats(float damage, float range, float cooldown, int ammo, float bulletSpeedl, int pelletCount = 0, float spread = 0f, float explosionRadius = 0f, float swingAngle = 0f, float thrustRadius = 0f)
     {
         this.damage = damage;
         this.range = range;
         this.cooldown = cooldown;
         this.ammo = ammo;
+        this.bulletSpeed = bulletSpeedl;
         this.pelletCount = pelletCount;
         this.spread = spread;
         this.explosionRadius = explosionRadius;
@@ -54,6 +57,8 @@ public class WeaponStats
     public float ExplosionRadius { get => explosionRadius; set => explosionRadius = value; }
     public float SwingAngle { get => swingAngle; set => swingAngle = value; }
     public float ThrustRadius { get => thrustRadius; set => thrustRadius = value; }
+
+    public float BulletSpeed { get => bulletSpeed; set => bulletSpeed = value; }
 
 
 }

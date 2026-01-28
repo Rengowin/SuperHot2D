@@ -3,12 +3,13 @@ using static Bullet;
 public class Pistol : Range
 {
 
-    public Pistol(float damage, float range, float attackCooldown, float maxAmmo)
+    public Pistol(float damage, float range, float attackCooldown, float maxAmmo, float bulletSpeed)
     {
         this.damage = damage;
         this.range = range;
         this.attackCooldown = attackCooldown;
         this.maxAmmo = maxAmmo;
+        this.bulletSpeed = bulletSpeed;
         Init();
     }
 
@@ -18,6 +19,7 @@ public class Pistol : Range
         this.range = stats.Range;
         this.attackCooldown = stats.Cooldown;
         this.maxAmmo = stats.Ammo;
+        this.bulletSpeed = stats.BulletSpeed;
         Init();
     }
 
@@ -26,7 +28,7 @@ public class Pistol : Range
         var init = new BulletInit
         {
             damage = damage,
-            speed = 50f,
+            speed = bulletSpeed,
             maxDistance = range,
             explosive = false
         };
