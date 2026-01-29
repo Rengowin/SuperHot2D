@@ -28,6 +28,9 @@ public class Bullet : MonoBehaviour
         public bool explosive;
         public float explosionRadius;
         public float explosionDamage;
+
+        public float bulletCount;
+        public float spreadAngle;
     }
 
     public void Init(BulletInit init, Vector3 dir)
@@ -44,7 +47,6 @@ public class Bullet : MonoBehaviour
 
         Launch(dir);
     }
-
 
     public void Launch(Vector3 dir)
     {

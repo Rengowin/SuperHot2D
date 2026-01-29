@@ -445,6 +445,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
+      propertyPath: weaponType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
+      propertyPath: weaponStats.damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
+      propertyPath: weaponStats.spread
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
+      propertyPath: weaponStats.swingAngle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
+      propertyPath: weaponStats.pelletCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
+      propertyPath: weaponStats.explosionRadius
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5526437672555368646, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: m_Name
       value: Player 1
