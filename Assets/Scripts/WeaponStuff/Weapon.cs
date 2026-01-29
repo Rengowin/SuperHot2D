@@ -13,6 +13,9 @@ public abstract class Weapon
     [SerializeField]
     protected float lastAttackTime;
 
+    protected Transform origin;
+
+
     public float Damage { get { return damage; } }
     public float Range { get { return range; } }
 

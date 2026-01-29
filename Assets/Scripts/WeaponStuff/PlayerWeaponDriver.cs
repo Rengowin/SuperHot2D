@@ -1,11 +1,19 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class PlayerWeaponDriver : MonoBehaviour
 {
-    [SerializeField] private WeaponController weapons;
-    [SerializeField] private Camera cam;
-    [SerializeField] private Transform muzzle;
-    [SerializeField] private float aimPlaneY = 0f; // Bodenhöhe
+    [SerializeField] WeaponController weapons;
+    [SerializeField] Camera cam;
+    [SerializeField] Transform muzzle;
+    [SerializeField] float aimPlaneY = 0f;
+
+
+    void Awake()
+    {
+        if (!weapons) weapons = GetComponent<WeaponController>();
+        if (weapons && muzzle) weapons.SetShootMuzzle(muzzle);
+    }
 
     void Update()
     {
@@ -18,9 +26,9 @@ public class PlayerWeaponDriver : MonoBehaviour
         if (plane.Raycast(ray, out float enter))
         {
             Vector3 aimPoint = ray.GetPoint(enter);
-            Vector3 dir = aimPoint - muzzle.position;
-            dir.y = 0f;
-            weapons.SetAimDirection(dir);
+            Vector3 direction = aimPoint - muzzle.position;
+            direction.y = 0f;
+            weapons.SetAimDirection(direction);
         }
 
         if (Input.GetMouseButtonDown(0))

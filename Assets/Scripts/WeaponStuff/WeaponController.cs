@@ -3,82 +3,105 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    [Header("Loadout (temporär zum Testen)")]
-    [SerializeField] private int startIndex = 0;
-
-    [Header("Scene References")]
-    [SerializeField] private Transform muzzle;
+    [Header("Projectiles")]
     [SerializeField] private GameObject defaultBulletPrefab;
 
     [Header("Runtime")]
-    [SerializeField] private List<Weapon> weapons = new List<Weapon>();
+    [SerializeField] private int startIndex = 0;
+
+    private readonly List<Weapon> weapons = new List<Weapon>();
     private int currentIndex;
+
+    private Transform shootMuzzle;
+    private Transform meleeOrigin;
+
     private Vector3 aimDir = Vector3.forward;
 
     public Weapon Current => (weapons.Count > 0) ? weapons[currentIndex] : null;
 
-    void Start()
+    public void SetShootMuzzle(Transform t) => shootMuzzle = t;
+    public void SetMeleeOrigin(Transform t) => meleeOrigin = t;
+
+    public void SetAimDirection(Vector3 direction)
     {
-        weapons.Add(new Pistol(10, 200f, 1f, 15)); // (damage, range, cooldown, maxAmmo) – check deine Reihenfolge!
+        if (direction.sqrMagnitude > 0.0001f) aimDir = direction.normalized;
+    }
+
+    public void ClearWeapons()
+    {
+        weapons.Clear();
+        currentIndex = 0;
+    }
+
+    public void AddWeapon(Weapon weapon)
+    {
+        if (weapon == null) return;
+        weapons.Add(weapon);
+    }
+
+    public void Init()
+    {
+        if (weapons.Count == 0)
+        {
+            Debug.LogWarning($"{name}: No weapons assigned.");
+            return;
+        }
 
         currentIndex = Mathf.Clamp(startIndex, 0, weapons.Count - 1);
-
         Current?.Init();
         ApplyRuntimeRefs(Current);
-    }
-
-
-    public void SetAimDirection(Vector3 dir)
-    {
-        if (dir.sqrMagnitude > 0.0001f)
-            aimDir = dir.normalized;
-    }
-
-    public void PrimaryFire()
-    {
-        var w = Current;
-        if (w == null) return;
-
-        if (w is Range r)
-        {
-            ApplyRuntimeRefs(r);
-            r.attack(aimDir);     // Range braucht aimDir
-        }
-        else
-        {
-            w.attack();           // Melee nutzt attack()
-        }
-    }
-
-    public void Reload()
-    {
-        if (Current is Range r)
-            r.Reload();
     }
 
     public void EquipIndex(int index)
     {
         if (index < 0 || index >= weapons.Count) return;
-
         currentIndex = index;
         Current?.Init();
         ApplyRuntimeRefs(Current);
     }
 
-    private void ApplyRuntimeRefs(Weapon w)
+    public void PrimaryFire()
     {
-        if (w is Range r)
-            ApplyRuntimeRefs(r);
+        var weapon = Current;
+        if (weapon == null) return;
+
+        ApplyRuntimeRefs(weapon);
+
+        if (weapon is Range range) range.attack(aimDir);
+        else if (weapon is Melee melee) melee.attack();
+        else weapon.attack();
     }
 
-    private void ApplyRuntimeRefs(Range r)
+    public void Reload()
     {
-        // Muzzle setzen
-        if (r.Muzzel == null)
-            r.Muzzel = muzzle;
+        if (Current is Range range) range.Reload();
+    }
 
-        // Bullet prefab setzen
-        if (r.ProjectilePrefab == null)
-            r.SetProjectilePrefab(defaultBulletPrefab);
+    private void ApplyRuntimeRefs(Weapon weapon)
+    {
+        if (weapon is Range range)
+        {
+            if (shootMuzzle == null)
+            {
+                Debug.LogWarning($"{name}: shootMuzzle not set. Using transform.");
+                shootMuzzle = transform;
+            }
+
+            range.Muzzel = shootMuzzle;
+
+
+            if (range.ProjectilePrefab == null && defaultBulletPrefab != null)
+                range.SetProjectilePrefab(defaultBulletPrefab);
+        }
+        else if (weapon is Melee melee)
+        {
+            if (meleeOrigin == null)
+            {
+                Debug.LogWarning($"{name}: meleeOrigin not set. Using transform.");
+                meleeOrigin = transform;
+            }
+            melee.MeleeOrigin = meleeOrigin;
+        }
+
     }
 }

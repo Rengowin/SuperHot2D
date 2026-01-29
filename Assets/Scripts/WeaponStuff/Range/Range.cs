@@ -7,6 +7,8 @@ public abstract class Range : Weapon
     protected float ammo;
     protected float maxAmmo;
 
+    protected float bulletSpeed;
+
     protected Transform muzzel;
     protected GameObject projectilePrefab;
 
@@ -55,16 +57,16 @@ public abstract class Range : Weapon
     {
         attack(direction);
     }
-    public void attack(Vector3 aimDir)
+    public void attack(Vector3 aimDirection)
     {
         if (canAttack())
         {
-            Shoot(aimDir.normalized);
+            Shoot(aimDirection.normalized);
             lastAttackTime = Time.time;
             ammo--;
         }
     }
-    public abstract void Shoot(Vector3 aimDir);
+    public abstract void Shoot(Vector3 aimDirection);
 
     public virtual void Reload()
     {
@@ -72,15 +74,15 @@ public abstract class Range : Weapon
         Debug.Log("Weapon reloaded!");
     }
 
-    public void SpawnBullet(Vector3 dir, GameObject prefab, BulletInit init)
+    public void SpawnBullet(Vector3 direction, GameObject prefab, BulletInit init)
     {
         if (muzzel == null) { Debug.LogError("No muzzle set"); return; }
         if (prefab == null) { Debug.LogError("No prefab"); return; }
 
-        dir = dir.normalized;
-        var go = Object.Instantiate(prefab, muzzel.position, Quaternion.LookRotation(dir));
+        direction = direction.normalized;
+        var go = Object.Instantiate(prefab, muzzel.position, Quaternion.LookRotation(direction));
         var b = go.GetComponent<Bullet>();
-        b.Init(init, dir);
+        b.Init(init, direction);
     }
 
 }

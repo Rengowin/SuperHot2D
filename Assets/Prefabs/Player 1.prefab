@@ -441,6 +441,7 @@ MonoBehaviour:
   resistance: 5
   impulseStrength: 10
   visual: {fileID: 0}
+  visual: {fileID: 0}
 --- !u!114 &8857576846361179576
 MonoBehaviour:
   m_ObjectHideFlags: 0
