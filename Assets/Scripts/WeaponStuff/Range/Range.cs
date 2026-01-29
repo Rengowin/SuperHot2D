@@ -85,4 +85,10 @@ public abstract class Range : Weapon
         b.Init(init, direction);
     }
 
+    public void addAmmo(float amnt)
+    {
+        ammo += amnt;
+        if (ammo > maxAmmo) ammo = maxAmmo;
+    }
+
 }

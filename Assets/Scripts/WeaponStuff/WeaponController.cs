@@ -4,18 +4,18 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     [Header("Projectiles")]
-    [SerializeField] private GameObject defaultBulletPrefab;
+    [SerializeField] GameObject defaultBulletPrefab;
 
     [Header("Runtime")]
-    [SerializeField] private int startIndex = 0;
+    [SerializeField] int startIndex = 0;
 
-    private readonly List<Weapon> weapons = new List<Weapon>();
-    private int currentIndex;
+    readonly List<Weapon> weapons = new List<Weapon>();
+    int currentIndex;
 
-    private Transform shootMuzzle;
-    private Transform meleeOrigin;
+    Transform shootMuzzle;
+    Transform meleeOrigin;
 
-    private Vector3 aimDir = Vector3.forward;
+    Vector3 aimDir = Vector3.forward;
 
     public Weapon Current => (weapons.Count > 0) ? weapons[currentIndex] : null;
 
@@ -103,5 +103,16 @@ public class WeaponController : MonoBehaviour
             melee.MeleeOrigin = meleeOrigin;
         }
 
+    }
+
+    public void addAmmo(float amont)
+    {
+        foreach (var weapon in weapons)
+        {
+            if (weapon is Range range)
+            {
+                range.addAmmo(amont);
+            }
+        }
     }
 }

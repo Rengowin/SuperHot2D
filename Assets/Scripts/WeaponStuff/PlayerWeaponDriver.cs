@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PlayerWeaponDriver : MonoBehaviour
 {
-    [SerializeField] private WeaponController weapons;
-    [SerializeField] private Transform muzzle;
-    [SerializeField] private Transform weaponPivot;
+    [SerializeField] WeaponController weapons;
+    [SerializeField] Transform muzzle;
+    [SerializeField] Transform weaponPivot;
 
     [Header("Aim Plane")]
-    [SerializeField] private float aimPlaneY = 0f;
-    [SerializeField] private float rotationSpeed = 25f;
+    [SerializeField] float aimPlaneY = 0f;
+    [SerializeField] float rotationSpeed = 25f;
 
     void Awake()
     {
