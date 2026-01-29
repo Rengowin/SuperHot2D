@@ -3,6 +3,7 @@ using UnityEngine;
 public enum PickUpEnum
 {
     Heal,
-    Ammo
+    Ammo,
+    SpeedBost
 }
 

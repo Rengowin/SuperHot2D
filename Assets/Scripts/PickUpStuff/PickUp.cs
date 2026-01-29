@@ -9,26 +9,36 @@ public class PickUp : MonoBehaviour
 
     WeaponController weaponController;
 
+    Movement movement;
+
     [SerializeField]
     PickUpStats pickUpStats;
+    [SerializeField]
+    BuffManger buffManger;
+
+    [SerializeField]
+    float duration;
+
+    float tempSpeed;
 
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
         playerStats = player.GetComponent<PlayerStats>();
         weaponController = player.GetComponent<WeaponController>();
+        movement = player.GetComponent<Movement>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void PickUpItem()
@@ -42,6 +52,10 @@ public class PickUp : MonoBehaviour
             case PickUpEnum.Ammo:
                 Ammo();
                 Debug.Log("Picked up an Ammo item.");
+                break;
+            case PickUpEnum.SpeedBost:
+                Movement();
+                Debug.Log("Picked up a Speed Boost item.");
                 break;
             default:
                 Debug.Log("Unknown item picked up.");
@@ -68,4 +82,9 @@ public class PickUp : MonoBehaviour
     {
         weaponController.addAmmo(pickUpStats.Amont);
     }
+
+    public void Movement()
+    {
+        buffManger.applyBuff(movement, duration, pickUpStats.Amont);
+    } 
 }

@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Vector2 xBounds = new Vector2(-55f, 66f);
     [SerializeField] private Vector2 zBounds = new Vector2(-100f, 50f);
     [SerializeField] private PlayerVisualController visual;
-    private PhysicsController physics; private Rigidbody rb; 
+    private PhysicsController physics; private Rigidbody rb;
 
     private Vector2 input; void Awake() 
 
