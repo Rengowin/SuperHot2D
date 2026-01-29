@@ -17,6 +17,8 @@ public static class MakeLoadOut
                 return new Swords(stats);
             case WeaponsEnum.Spear:
                 return new Spear(stats);
+            case WeaponsEnum.CombinedRange:
+                return new AllRangeTogether(stats);
             default:
                 Debug.LogError("Invalid weapon type");
                 return null;

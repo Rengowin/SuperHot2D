@@ -96,4 +96,10 @@ public abstract class Range : Weapon
     }
 }
 
+    public void addAmmo(float amnt)
+    {
+        ammo += amnt;
+        if (ammo > maxAmmo) ammo = maxAmmo;
+    }
+
 }

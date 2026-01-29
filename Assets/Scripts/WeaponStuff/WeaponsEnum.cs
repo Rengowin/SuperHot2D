@@ -6,6 +6,7 @@ public enum WeaponsEnum
     ShotGun,
     RocketLauncher,
     Swords,
-    Spear
+    Spear,
+    CombinedRange
 }
 
