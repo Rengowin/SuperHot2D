@@ -30,6 +30,13 @@ public class WaveManager : MonoBehaviour
         if (spawnManager == null)
             spawnManager = FindFirstObjectByType<EnemySpawnManager>();
 
+        if (spawnManager == null)
+        {
+            Debug.LogError("WaveManager: No EnemySpawnManager found in scene!");
+            enabled = false;
+            return;
+        }
+
         StartCoroutine(RunWaves());
     }
 
@@ -42,15 +49,18 @@ public class WaveManager : MonoBehaviour
             onWaveStart?.Invoke();
 
             Wave wave = waves[currentWaveIndex];
+
+            // Count how many will be spawned this wave.
+            // If you always spawn 1 boss, keep enemyCount = 1 in the wave data.
             aliveThisWave = wave.enemyCount;
             spawnFinished = false;
 
-            // Tell spawn manager to spawn this wave (count + delay)
             spawnManager.RunWave(
                 wave.enemyCount,
                 wave.spawnDelay,
-                OnEnemyDied,
-                () => spawnFinished = true
+                wave.bossRound,      // ✅ pass bossRound
+                OnEnemyDied,         // ✅ enemy died callback
+                OnWaveSpawnFinished  // ✅ spawn finished callback
             );
 
             // Wait until spawner finished spawning AND all enemies died
@@ -67,5 +77,10 @@ public class WaveManager : MonoBehaviour
     private void OnEnemyDied()
     {
         aliveThisWave = Mathf.Max(0, aliveThisWave - 1);
+    }
+
+    private void OnWaveSpawnFinished()
+    {
+        spawnFinished = true;
     }
 }

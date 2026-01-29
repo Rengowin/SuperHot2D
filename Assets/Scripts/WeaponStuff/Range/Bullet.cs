@@ -62,6 +62,8 @@ public class Bullet : MonoBehaviour
         var enemy = collision.collider.GetComponentInParent<Enemy>();
         if (enemy != null && !isExplosive)
             enemy.HP -= damage;
+            Destroy(gameObject);
+            
 
         if (isExplosive) Explode();
         Destroy(gameObject);

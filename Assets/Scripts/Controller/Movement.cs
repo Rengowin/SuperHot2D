@@ -55,7 +55,7 @@ public class Movement : MonoBehaviour
     void ClampPositionAndStop()
 {
     Vector3 pos = rb.position;
-    Vector3 vel = rb.velocity;
+    Vector3 vel = rb.linearVelocity;
 
     // --- X bounds (hard stop) ---
     if (pos.x <= xBounds.x)
@@ -82,6 +82,6 @@ public class Movement : MonoBehaviour
     }
 
     rb.position = pos;
-    rb.velocity = vel;
+    rb.linearVelocity = vel;
 }
 }

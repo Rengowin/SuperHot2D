@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerStarDataClass
+public class PlayerStatDataClass
 {
     [Header ("Player Base Stats")]
     [SerializeField] int hitPoints; //Maybe float? or we work with dmg and so only in no float/double values

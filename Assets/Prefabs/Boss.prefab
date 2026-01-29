@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8904609986021250711}
   - component: {fileID: 8589584660731708903}
   m_Layer: 0
-  m_Name: SpriteEnemy
+  m_Name: SpriteBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: 0.06, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3187369573442955629}
@@ -48,8 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyVisualController
   sprite: {fileID: 8589584660731708903}
   animator: {fileID: 8904609986021250711}
-  frontController: {fileID: 9100000, guid: 3aa08b17e8b24a644927dbb502170c7e, type: 2}
-  backController: {fileID: 9100000, guid: e0dcc142938fdda4783a70478ca6de8c, type: 2}
+  frontController: {fileID: 9100000, guid: 57c52ada6d6454841ac70eb3a31d4346, type: 2}
+  backController: {fileID: 9100000, guid: 57c52ada6d6454841ac70eb3a31d4346, type: 2}
   player: {fileID: 0}
   deadZone: 0.05
 --- !u!95 &8904609986021250711
@@ -62,7 +62,7 @@ Animator:
   m_GameObject: {fileID: 1609209684422385444}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3aa08b17e8b24a644927dbb502170c7e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 57c52ada6d6454841ac70eb3a31d4346, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -121,7 +121,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: -85775531, guid: 80e72dc314b3a2f4a8c60469a08c3567, type: 3}
+  m_Sprite: {fileID: -913123251, guid: fc2294487a6c08942ac0c68ea136d0d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 650078870631657101}
   - component: {fileID: 217103752900882860}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.018, y: 0.953, z: -0.585}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3607650639668973552}
@@ -317,6 +317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923c0dec4ab91434889deaa3e923a1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  hp: 50
-  movementSpeed: 5
+  hp: 500
+  movementSpeed: 3
   damage: 10
