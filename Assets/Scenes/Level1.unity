@@ -268,6 +268,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3543076852294788629, guid: eb493da3493e62648b9c007188ab1d78, type: 3}
   m_PrefabInstance: {fileID: 719620533}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &522661071 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5526437672555368646, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
+  m_PrefabInstance: {fileID: 5404312613141146204}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &719620533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1526,6 +1531,40 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3543076852294788629, guid: eb493da3493e62648b9c007188ab1d78, type: 3}
   m_PrefabInstance: {fileID: 1696541339}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1044315144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522661071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b761cb280450743b9610672eb51691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
+  contactHitCooldown: 0.25
+--- !u!114 &1044315145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522661071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e77e35e86d6f04e8374781ba6b6dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  maxHP: 100
+  currentHP: 100
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  gameOverSceneName: MainMenu
 --- !u!1 &1075880619
 GameObject:
   m_ObjectHideFlags: 0
@@ -2469,7 +2508,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5526437672555368646, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1044315145}
+    - targetCorrespondingSourceObject: {fileID: 5526437672555368646, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1044315144}
   m_SourcePrefab: {fileID: 100100000, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

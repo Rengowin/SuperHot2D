@@ -2,15 +2,51 @@ using UnityEngine;
 
 public class DamageReceiver : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Hit Cooldown")]
+    [SerializeField] private float contactHitCooldown = 0.25f;
+
+    private PlayerStats stats;
+    private float lastContactHitTime = -999f;
+
+    void Awake()
     {
-        
+        stats = GetComponent<PlayerStats>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnCollisionEnter(Collision collision)
     {
-        
+        TryTakeContactDamage(collision.collider);
+        TryTakeBulletDamage(collision.collider);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        TryTakeContactDamage(other);
+        TryTakeBulletDamage(other);
+    }
+
+    private void TryTakeContactDamage(Collider other)
+    {
+        if (Time.time < lastContactHitTime + contactHitCooldown)
+            return;
+
+        var touch = other.GetComponentInParent<DamageOnTouch>();
+        if (touch != null)
+        {
+            stats.TakeDamage(touch.ContactDamage);
+            lastContactHitTime = Time.time;
+        }
+    }
+
+    private void TryTakeBulletDamage(Collider other)
+    {
+        var bullet = other.GetComponentInParent<Bullet>();
+        if (bullet == null) return;
+
+        // If you have friendly fire later, you can add an owner check here.
+        stats.TakeDamage(bullet.damage);
+
+        // Optional: destroy bullet on hit (only if bullet doesn't already do it)
+        // Destroy(bullet.gameObject);
     }
 }
