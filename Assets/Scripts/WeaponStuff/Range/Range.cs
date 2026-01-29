@@ -75,14 +75,25 @@ public abstract class Range : Weapon
     }
 
     public void SpawnBullet(Vector3 direction, GameObject prefab, BulletInit init)
-    {
-        if (muzzel == null) { Debug.LogError("No muzzle set"); return; }
-        if (prefab == null) { Debug.LogError("No prefab"); return; }
+{
+    if (muzzel == null) { Debug.LogError("No muzzle set"); return; }
+    if (prefab == null) { Debug.LogError("No prefab"); return; }
 
-        direction = direction.normalized;
-        var go = Object.Instantiate(prefab, muzzel.position, Quaternion.LookRotation(direction));
-        var b = go.GetComponent<Bullet>();
+    direction = direction.normalized;
+
+    var go = Object.Instantiate(prefab, muzzel.position, Quaternion.LookRotation(direction));
+    var b = go.GetComponent<Bullet>();
+
+    if (b != null)
+    {
+        // ✅ Set the owner so bullets don't damage the shooter
+        b.owner = muzzel.root.gameObject;   // shooter (player/enemy root)
         b.Init(init, direction);
     }
+    else
+    {
+        Debug.LogError("Spawned projectile has no Bullet component!");
+    }
+}
 
 }

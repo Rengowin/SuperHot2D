@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerStats))]
 public class DamageReceiver : MonoBehaviour
 {
     [Header("Hit Cooldown")]
@@ -43,10 +44,13 @@ public class DamageReceiver : MonoBehaviour
         var bullet = other.GetComponentInParent<Bullet>();
         if (bullet == null) return;
 
-        // If you have friendly fire later, you can add an owner check here.
-        stats.TakeDamage(bullet.damage);
+        if (bullet.owner != null && bullet.owner == gameObject)
+            return;
 
-        // Optional: destroy bullet on hit (only if bullet doesn't already do it)
-        // Destroy(bullet.gameObject);
-    }
+       
+        if (bullet.owner != null && bullet.owner == transform.root.gameObject)
+            return;
+
+        stats.TakeDamage(bullet.damage);
+}
 }

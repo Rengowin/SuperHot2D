@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public bool isExplosive;
     public float explosionRadius;
     public float explosionDamage;
+    [HideInInspector] public GameObject owner;
 
     Vector3 startPos;
     Rigidbody rb;
