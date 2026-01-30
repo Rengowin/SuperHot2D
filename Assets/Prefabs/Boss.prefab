@@ -49,7 +49,7 @@ MonoBehaviour:
   sprite: {fileID: 8589584660731708903}
   animator: {fileID: 8904609986021250711}
   frontController: {fileID: 9100000, guid: 57c52ada6d6454841ac70eb3a31d4346, type: 2}
-  backController: {fileID: 9100000, guid: 57c52ada6d6454841ac70eb3a31d4346, type: 2}
+  backController: {fileID: 9100000, guid: 06acc078602ad9c409cc66d1aad7beb5, type: 2}
   player: {fileID: 0}
   deadZone: 0.05
 --- !u!95 &8904609986021250711
@@ -272,7 +272,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750686513949300021}
   serializedVersion: 5
-  m_Mass: 25
+  m_Mass: 300
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

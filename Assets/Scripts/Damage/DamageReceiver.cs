@@ -27,17 +27,28 @@ public class DamageReceiver : MonoBehaviour
     }
 
     private void TryTakeContactDamage(Collider other)
-    {
-        if (Time.time < lastContactHitTime + contactHitCooldown)
-            return;
+{
+    if (Time.time < lastContactHitTime + contactHitCooldown)
+        return;
 
-        var touch = other.GetComponentInParent<DamageOnTouch>();
-        if (touch != null)
-        {
-            stats.TakeDamage(touch.ContactDamage);
-            lastContactHitTime = Time.time;
-        }
+    DamageOnTouch damageTouch = other.GetComponentInParent<DamageOnTouch>();
+    if (damageTouch != null)
+    {
+        stats.TakeDamage(damageTouch.ContactDamage);
+        lastContactHitTime = Time.time;
+        return;
     }
+
+    ExplodeOnTouch explodeTouch = other.GetComponentInParent<ExplodeOnTouch>();
+    if (explodeTouch != null)
+    {
+        stats.TakeDamage(explodeTouch.ContactDamage);
+        lastContactHitTime = Time.time;
+        Destroy(other.transform.root.gameObject);
+        return;
+    }
+}
+
 
     private void TryTakeBulletDamage(Collider other)
     {
