@@ -1,3 +1,4 @@
+using System;                    // ✅ REQUIRED
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,10 @@ public class WaveManager : MonoBehaviour
 {
     [Header("Waves")]
     public List<Wave> waves = new List<Wave>();
+
+    public event Action<int, int, bool> onWaveChanged;
+    public int CurrentWaveNumber => currentWaveIndex + 1;
+    public int TotalWaves => waves != null ? waves.Count : 0;
 
     [Header("Spawner")]
     [SerializeField] private EnemySpawnManager spawnManager;
@@ -50,27 +55,27 @@ public class WaveManager : MonoBehaviour
 
             Wave wave = waves[currentWaveIndex];
 
-            // Count how many will be spawned this wave.
-            // If you always spawn 1 boss, keep enemyCount = 1 in the wave data.
             aliveThisWave = wave.enemyCount;
             spawnFinished = false;
 
+            onWaveChanged?.Invoke(CurrentWaveNumber, TotalWaves, wave.bossRound);
+            
             spawnManager.RunWave(
                 wave.enemyCount,
                 wave.spawnDelay,
-                wave.bossRound,      // ✅ pass bossRound
-                OnEnemyDied,         // ✅ enemy died callback
-                OnWaveSpawnFinished  // ✅ spawn finished callback
+                wave.bossRound,      
+                OnEnemyDied,         
+                OnWaveSpawnFinished  
             );
 
             // Wait until spawner finished spawning AND all enemies died
             while (!spawnFinished || aliveThisWave > 0)
                 yield return null;
-
+            
+            onWaveChanged?.Invoke(CurrentWaveNumber, TotalWaves, false);
             onWaveComplete?.Invoke();
             currentWaveIndex++;
         }
-
         onAllWavesComplete?.Invoke();
     }
 

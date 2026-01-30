@@ -5,6 +5,7 @@ public class DamageReceiver : MonoBehaviour
 {
     [Header("Hit Cooldown")]
     [SerializeField] private float contactHitCooldown = 0.25f;
+    [SerializeField] private Animator animator;
 
     private PlayerStats stats;
     private float lastContactHitTime = -999f;
