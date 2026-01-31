@@ -1,0 +1,18 @@
+.root {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    background-image: url("project://database/Assets/UI%20Toolkit/Textures/bg-all.png?fileID=2800000&guid=13e3c234397a79249a4998356ffd6c04&type=3#bg-all");
+    background-size: cover;
+    background-position: center;
+}
+
+.burger-panel {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    max-width: 800px;
+    height: 70%;
+    padding: 20px;
+}
