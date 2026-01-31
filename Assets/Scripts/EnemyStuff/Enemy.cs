@@ -1,64 +1,99 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    float hp, movementSpeed, damage;
-    //[SerializeField]
-    //Weapon weapon;
+    [Header("Stats")]
+    [SerializeField] float hp;
+    [SerializeField] float movementSpeed;
+    [SerializeField] float damage;
 
+    [Header("Death")]
+    [SerializeField] private float deathDelay = 1.2f;
 
-    //we could add if contions for to low values like hp below 0 to this or if dmg would go below 1
+    public event Action<Enemy> onDeath;
+
+    private bool isDying;
+
+    private Animator animator;
+    private Rigidbody rb;
+    private Collider col;
+    private AudioSource audioSource;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip deathSound;
+
     public float HP
     {
-        get { return hp; }
-        set { hp = value;
+        get => hp;
+        set
+        {
+            if (isDying) return;
+
+            hp = value;
             Debug.Log($"Enemy HP set to: {hp}");
-            if (hp <= 0)
-            {
-                Die();
-            }
+
+            if (hp <= 0f)
+                StartCoroutine(DeathRoutine());
         }
     }
 
     public float MovementSpeed
     {
-        get { return movementSpeed; }
-        set { movementSpeed = value; }
+        get => movementSpeed;
+        set => movementSpeed = value;
     }
 
-    float Damage
+    public float Damage
     {
-        get { return damage; }
-        set { damage = value; }
+        get => damage;
+        set => damage = value;
     }
 
-
-    void Start()
+    void Awake()
     {
-        
-    }
+        animator = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 0f;
     }
 
     public void init(float hp, float movementSpeed, int damage, Weapon weapon)
     {
-        HP = hp;
+        this.hp = hp;
         MovementSpeed = movementSpeed;
         Damage = damage;
-
-        //this.weapon = weapon;
     }
 
-    public void Die()
+    private IEnumerator DeathRoutine()
     {
-        Debug.Log("Enemy died");
-        Destroy(this.gameObject);
-    }
+        if (isDying) yield break;
+        isDying = true;
 
-    
+        Debug.Log("Enemy died");
+        onDeath?.Invoke(this);
+        if (rb)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
+
+        if (col)
+            col.enabled = false;
+
+        if (animator)
+            animator.SetBool("Die", true);
+
+        if (deathSound)
+            audioSource.PlayOneShot(deathSound);
+
+        yield return new WaitForSeconds(deathDelay);
+
+        Destroy(gameObject);
+    }
 }

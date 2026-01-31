@@ -148,8 +148,8 @@ GameObject:
   - component: {fileID: 3013712653122289036}
   - component: {fileID: 650078870631657101}
   - component: {fileID: 217103752900882860}
-  - component: {fileID: -635138756454288693}
   - component: {fileID: 9170827476406735347}
+  - component: {fileID: 7893056677760541051}
   m_Layer: 0
   m_Name: FlyingEnemy
   m_TagString: Enemy
@@ -322,19 +322,8 @@ MonoBehaviour:
   hp: 50
   movementSpeed: 5
   damage: 10
---- !u!114 &-635138756454288693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1750686513949300021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c298f11e0712ec489131d4e6eb03448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageOnTouch
-  contactDamage: 10
+  deathDelay: 1.2
+  deathSound: {fileID: 8300000, guid: 38b8f485e80977c43a4ac580b5d7f586, type: 3}
 --- !u!114 &9170827476406735347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,3 +344,23 @@ MonoBehaviour:
   dashCooldown: 4
   lockY: 1
   groundY: 0
+--- !u!114 &7893056677760541051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750686513949300021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba474ab711e59b4090b706e2d337a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplodeOnTouch
+  playerDamage: 25
+  useAOE: 0
+  explosionRadius: 3
+  enemyDamage: 9999
+  aoeMask:
+    serializedVersion: 2
+    m_Bits: 136
+  destroyThisObjectAfterExplode: 1

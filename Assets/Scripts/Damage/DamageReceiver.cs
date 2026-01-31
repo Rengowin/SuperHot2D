@@ -43,9 +43,6 @@ public class DamageReceiver : MonoBehaviour
     ExplodeOnTouch explodeTouch = other.GetComponentInParent<ExplodeOnTouch>();
     if (explodeTouch != null)
     {
-        stats.TakeDamage(explodeTouch.ContactDamage);
-        lastContactHitTime = Time.time;
-        Destroy(other.transform.root.gameObject);
         return;
     }
 }

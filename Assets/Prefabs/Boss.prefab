@@ -321,6 +321,8 @@ MonoBehaviour:
   hp: 500
   movementSpeed: 3
   damage: 10
+  deathDelay: 1.2
+  deathSound: {fileID: 8300000, guid: 3ad292c8690953c43b5f7c1e468d7d8d, type: 3}
 --- !u!114 &-1615041030215801384
 MonoBehaviour:
   m_ObjectHideFlags: 0

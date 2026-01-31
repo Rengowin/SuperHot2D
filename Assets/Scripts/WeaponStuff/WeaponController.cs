@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class WeaponController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class WeaponController : MonoBehaviour
     Transform meleeOrigin;
 
     Vector3 aimDir = Vector3.forward;
+    public event Action<int, int> onAmmoChanged;
 
     public Weapon Current => (weapons.Count > 0) ? weapons[currentIndex] : null;
 
@@ -49,6 +51,7 @@ public class WeaponController : MonoBehaviour
 
         currentIndex = Mathf.Clamp(startIndex, 0, weapons.Count - 1);
         Current?.Init();
+        NotifyAmmo();
         ApplyRuntimeRefs(Current);
     }
 
@@ -57,6 +60,7 @@ public class WeaponController : MonoBehaviour
         if (index < 0 || index >= weapons.Count) return;
         currentIndex = index;
         Current?.Init();
+        NotifyAmmo();
         ApplyRuntimeRefs(Current);
     }
 
@@ -74,7 +78,7 @@ public class WeaponController : MonoBehaviour
 
     public void Reload()
     {
-        if (Current is Range range) range.Reload();
+        if (Current is Range range) range.Reload(); NotifyAmmo();
     }
 
     private void ApplyRuntimeRefs(Weapon weapon)
@@ -88,10 +92,11 @@ public class WeaponController : MonoBehaviour
             }
 
             range.Muzzel = shootMuzzle;
-
+            
 
             if (range.ProjectilePrefab == null && defaultBulletPrefab != null)
                 range.SetProjectilePrefab(defaultBulletPrefab);
+            NotifyAmmo();
         }
         else if (weapon is Melee melee)
         {
@@ -101,6 +106,7 @@ public class WeaponController : MonoBehaviour
                 meleeOrigin = transform;
             }
             melee.MeleeOrigin = meleeOrigin;
+            onAmmoChanged?.Invoke(-1, -1); 
         }
 
     }
@@ -115,4 +121,14 @@ public class WeaponController : MonoBehaviour
             }
         }
     }
+    private void NotifyAmmo()
+{
+    if (Current is Range r)
+        onAmmoChanged?.Invoke((int)r.Ammo, (int)r.MaxAmmo);
+    else
+        onAmmoChanged?.Invoke(-1, -1); // means "no ammo weapon"
 }
+
+
+}    
+    
