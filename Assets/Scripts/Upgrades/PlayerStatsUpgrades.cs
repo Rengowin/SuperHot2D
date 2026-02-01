@@ -29,7 +29,7 @@ public class PlayerStatsUpgrades : MonoBehaviour
     {
         switch (upgradeType)
         {
-            case PlayerUpgradeType.Health:
+            case PlayerUpgradeType.MaxHealth:
                 if (modiferType == ModiferType.Add)
                 {
                     playerStats.MaxHP += value;

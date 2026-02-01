@@ -67,17 +67,20 @@ public class WaveRewardManager : MonoBehaviour
             var a = choices[0];
             var b = choices[1];
 
+            string aName = FormatUpgradeText(a);
+            string bName = FormatUpgradeText(b);
+
             rewardUI.ShowUpgradePanel(
                 $"Wave {completedWave} Complete! Choose an upgrade:",
-                hpUpgrade: () => playerStatsUpgrades.ApplyUpgrade(a),
-                dmgUpgrade: () => playerStatsUpgrades.ApplyUpgrade(b)
+                aName, () => playerStatsUpgrades.ApplyUpgrade(a),
+                bName, () => playerStatsUpgrades.ApplyUpgrade(b)
             );
             return;
         }
 
-        // Even wave => unlock weapon + show panel
-        foreach (var u in unlocks)
-        {
+            // Even wave => unlock weapon + show panel
+            foreach (var u in unlocks)
+            {
             if (u.waveNumber != completedWave) continue;
 
             weaponController.UnlockWeapon(u.weaponType, u.weaponStats);
@@ -91,6 +94,47 @@ public class WaveRewardManager : MonoBehaviour
             );
 
             return;
-        }
+            }
     }
+
+
+    private string BuildFallbackName(UpgradeStats u)
+    {
+        string sign = u.ModiferType == ModiferType.Add ? "+" : "x";
+        string val = u.Value.ToString("0.##");
+
+        if (u.Target == UpgradeTarget.Player)
+            return $"{sign}{val} {u.PlayerType}";
+        else
+            return $"{sign}{val} {u.WeaponType}";
+    }
+
+    private string FormatUpgradeText(UpgradeStats u)
+    {
+        if (u == null) return "NULL UPGRADE";
+
+        // Add => "+", Multiply => "x"
+        string sign = u.ModiferType == ModiferType.Add ? "+" : "x";
+
+        // formatiert Wert schön: 10 -> "10", 1.1 -> "1.1", 1.234 -> "1.23"
+        string valueText = u.Value.ToString("0.##");
+
+        // Ziel-Name: PlayerType oder WeaponType
+        string typeText;
+        if (u.Target == UpgradeTarget.Player)
+            typeText = u.PlayerType.ToString();
+        else
+            typeText = u.WeaponType.ToString();
+
+        // Wenn DisplayName gesetzt ist, nutze es und hänge den Wert an
+        if (!string.IsNullOrEmpty(u.DisplayName))
+        {
+            // Beispiel: "+ HP (+10)" oder "DMG (x1.2)"
+            return $"{u.DisplayName} ({sign}{valueText})";
+        }
+
+        // Fallback: "+10 Damage" oder "x1.1 MaxHealth"
+        return $"{sign}{valueText} {typeText}";
+    }
+
 }

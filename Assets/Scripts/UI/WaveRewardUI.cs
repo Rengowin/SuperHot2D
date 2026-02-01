@@ -33,17 +33,24 @@ public class WaveRewardUI : MonoBehaviour
         if (continueButton) continueButton.onClick.AddListener(() => { onContinue?.Invoke(); CloseAll(); });
     }
 
-    public void ShowUpgradePanel(string title, System.Action hpUpgrade, System.Action dmgUpgrade)
+    public void ShowUpgradePanel(string title,
+    string optionAText, System.Action optionA,
+    string optionBText, System.Action optionB)
     {
         CloseAll();
         Time.timeScale = 0f;
 
-        onHp = hpUpgrade;
-        onDmg = dmgUpgrade;
+        onHp = optionA;
+        onDmg = optionB;
 
-        if (upgradeTitleText) upgradeTitleText.text = title;
-        if (upgradePanel) upgradePanel.SetActive(true);
+        upgradeTitleText.text = title;
+
+        hpButton.GetComponentInChildren<TMP_Text>().text = optionAText;
+        damageButton.GetComponentInChildren<TMP_Text>().text = optionBText;
+
+        upgradePanel.SetActive(true);
     }
+
 
     public void ShowUnlockPanel(string weaponName, Sprite icon, System.Action continueAction)
     {

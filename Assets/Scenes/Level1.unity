@@ -1953,6 +1953,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293347751}
   m_CullTransparentMesh: 1
+--- !u!1 &303226384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 303226386}
+  - component: {fileID: 303226385}
+  m_Layer: 0
+  m_Name: UpgradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &303226385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303226384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87eb9796add77194eb5b2ad758b4c2a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatsUpgrades
+  upgradeStats:
+  - target: 0
+    playerType: 0
+    weaponType: 0
+    modiferType: 0
+    value: 10
+    displayName: HP
+  - target: 0
+    playerType: 0
+    weaponType: 0
+    modiferType: 1
+    value: 1.1
+    displayName: HP
+  - target: 1
+    playerType: 0
+    weaponType: 0
+    modiferType: 0
+    value: 3
+    displayName: DMG
+  - target: 1
+    playerType: 0
+    weaponType: 0
+    modiferType: 1
+    value: 1.1
+    displayName: DMG
+--- !u!4 &303226386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303226384}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.54769, y: 0, z: 6.1372}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &303794915
 GameObject:
   m_ObjectHideFlags: 0
@@ -8453,6 +8522,7 @@ MonoBehaviour:
       thrustRadius: 0
     weaponIcon: {fileID: -861894224, guid: e9cad801708dad047a346bddeb7779e8, type: 3}
     displayName: COMBINED
+  playerStatsUpgrades: {fileID: 0}
 --- !u!1 &1350847606
 GameObject:
   m_ObjectHideFlags: 0
@@ -11467,6 +11537,8 @@ MonoBehaviour:
   unlockedNameText: {fileID: 1164445987}
   unlockedIcon: {fileID: 1877891401}
   continueButton: {fileID: 99979247}
+  hpButtonText: {fileID: 0}
+  damageButtonText: {fileID: 0}
 --- !u!1 &1771475415
 GameObject:
   m_ObjectHideFlags: 0
@@ -12901,6 +12973,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1934946248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1934946249}
+  m_Layer: 0
+  m_Name: EnemyContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1934946249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934946248}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1945303558
 GameObject:
   m_ObjectHideFlags: 0
@@ -14656,6 +14759,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2508650644764648936, guid: c6f97cdfcb4a9f446bf600db246b0f97, type: 3}
+      propertyPath: enemyContainer
+      value: 
+      objectReference: {fileID: 1934946249}
+    - target: {fileID: 2508650644764648936, guid: c6f97cdfcb4a9f446bf600db246b0f97, type: 3}
       propertyPath: spawnPoints.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -15189,7 +15296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[0].spread
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[1].damage
@@ -15277,7 +15384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[0].pelletCount
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[1].bulletSpeed
@@ -15485,3 +15592,5 @@ SceneRoots:
   - {fileID: 1539989048}
   - {fileID: 32365421}
   - {fileID: 1642621437}
+  - {fileID: 303226386}
+  - {fileID: 1934946249}
