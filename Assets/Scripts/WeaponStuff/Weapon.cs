@@ -74,10 +74,10 @@ public abstract class Weapon
         }
 
         return false;
+    }
     public virtual void AddDamageMultiplier(float amount)
     {
         damageMultiplier += amount;
         damageMultiplier = Mathf.Max(0.1f, damageMultiplier);
     }
-}
 }
