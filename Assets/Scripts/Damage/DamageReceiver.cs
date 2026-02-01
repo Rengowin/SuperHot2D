@@ -5,6 +5,7 @@ public class DamageReceiver : MonoBehaviour
 {
     [Header("Hit Cooldown")]
     [SerializeField] private float contactHitCooldown = 0.25f;
+    [SerializeField] private Animator animator;
 
     private PlayerStats stats;
     private float lastContactHitTime = -999f;
@@ -27,17 +28,25 @@ public class DamageReceiver : MonoBehaviour
     }
 
     private void TryTakeContactDamage(Collider other)
-    {
-        if (Time.time < lastContactHitTime + contactHitCooldown)
-            return;
+{
+    if (Time.time < lastContactHitTime + contactHitCooldown)
+        return;
 
-        var touch = other.GetComponentInParent<DamageOnTouch>();
-        if (touch != null)
-        {
-            stats.TakeDamage(touch.ContactDamage);
-            lastContactHitTime = Time.time;
-        }
+    DamageOnTouch damageTouch = other.GetComponentInParent<DamageOnTouch>();
+    if (damageTouch != null)
+    {
+        stats.TakeDamage(damageTouch.ContactDamage);
+        lastContactHitTime = Time.time;
+        return;
     }
+
+    ExplodeOnTouch explodeTouch = other.GetComponentInParent<ExplodeOnTouch>();
+    if (explodeTouch != null)
+    {
+        return;
+    }
+}
+
 
     private void TryTakeBulletDamage(Collider other)
     {

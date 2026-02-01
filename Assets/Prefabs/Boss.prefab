@@ -49,7 +49,7 @@ MonoBehaviour:
   sprite: {fileID: 8589584660731708903}
   animator: {fileID: 8904609986021250711}
   frontController: {fileID: 9100000, guid: 57c52ada6d6454841ac70eb3a31d4346, type: 2}
-  backController: {fileID: 9100000, guid: 57c52ada6d6454841ac70eb3a31d4346, type: 2}
+  backController: {fileID: 9100000, guid: 06acc078602ad9c409cc66d1aad7beb5, type: 2}
   player: {fileID: 0}
   deadZone: 0.05
 --- !u!95 &8904609986021250711
@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 650078870631657101}
   - component: {fileID: 217103752900882860}
   - component: {fileID: -1615041030215801384}
+  - component: {fileID: 2598096473378205987}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -272,7 +273,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750686513949300021}
   serializedVersion: 5
-  m_Mass: 25
+  m_Mass: 300
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -321,6 +322,8 @@ MonoBehaviour:
   hp: 500
   movementSpeed: 3
   damage: 10
+  deathDelay: 1.2
+  deathSound: {fileID: 8300000, guid: 3ad292c8690953c43b5f7c1e468d7d8d, type: 3}
 --- !u!114 &-1615041030215801384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,3 +337,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnTouch
   contactDamage: 20
+--- !u!114 &2598096473378205987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750686513949300021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c3132fb86369042a4bc21733d2adac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPickupDropper
+  dropChance: 1
+  pickupPrefabs:
+  - {fileID: 1761188010469013530, guid: 5fa306e668921d445a4252a6414d5878, type: 3}
+  - {fileID: 4593733178328109346, guid: 5bb230e8036e2344aa389ab04920a12d, type: 3}
+  spawnRadius: 0.5

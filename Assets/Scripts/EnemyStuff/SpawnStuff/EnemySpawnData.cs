@@ -9,10 +9,11 @@ public class EnemySpawnData
 
     [Header("Prefab")]
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private GameObject bossEnemyPrefab;
+
     [SerializeField] private EnemySpawnInfos enemyStats;
-    [SerializeField] private EnemySpawnInfos bossStats;
-    
+
+    [Header("Boss Prefab (optional)")]
+    [SerializeField] private GameObject bossEnemyPrefab;
 
     public int MaxEnemiesInLevel => maxEnemiesInLevel;
     public int CountHowManySpawnedInLevel
@@ -22,7 +23,6 @@ public class EnemySpawnData
     }
 
     public GameObject EnemyPrefab => enemyPrefab;
-    public EnemySpawnInfos EnemyStats => enemyStats;
     public GameObject BossEnemyPrefab => bossEnemyPrefab;
-    public EnemySpawnInfos BossStats => enemyStats;
+    public EnemySpawnInfos EnemyStats => enemyStats;
 }

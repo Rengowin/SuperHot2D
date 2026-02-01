@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using System;
+using System.Collections;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -12,8 +14,10 @@ public class PlayerStats : MonoBehaviour
     public UnityEvent onDamaged;
     public UnityEvent onDeath;
 
+    public event Action<float, float> onHealthChanged;
+    [SerializeField] private Animator animator;
+
     [Header("Lose Condition")]
-    [Tooltip("If set, load this scene when player dies (e.g. MainMenu). Leave empty to just freeze + log.")]
     [SerializeField] private string gameOverSceneName = "";
 
     public float MaxHP {
@@ -28,48 +32,80 @@ public class PlayerStats : MonoBehaviour
                     currentHP = maxHP;
             }
     }
+    private bool isDying = false;
     public bool IsDead => currentHP <= 0f;
 
     void Awake()
     {
+        if (!animator)
+        animator = GetComponentInChildren<Animator>();
         currentHP = Mathf.Clamp(currentHP, 0f, maxHP);
+        onHealthChanged?.Invoke(currentHP, maxHP);
     }
 
     public void TakeDamage(float amount)
+{
+    if (isDying || amount <= 0f) return;
+
+    currentHP = Mathf.Clamp(currentHP - amount, 0f, maxHP);
+
+    onDamaged?.Invoke();
+    onHealthChanged?.Invoke(currentHP, maxHP);
+
+    if (currentHP <= 0f && !isDying)
     {
-        if (IsDead) return;
-        if (amount <= 0f) return;
-
-        currentHP = Mathf.Clamp(currentHP - amount, 0f, maxHP);
-        onDamaged?.Invoke();
-
-        if (currentHP <= 0f)
-            Die();
+        isDying = true;
+        StartCoroutine(DeathRoutine());
     }
+}
 
     public void Heal(float amount)
     {
-        if (IsDead) return;
-        if (amount <= 0f) return;
+        if (isDying || amount <= 0f) return;
 
         currentHP = Mathf.Clamp(currentHP + amount, 0f, maxHP);
+        onHealthChanged?.Invoke(currentHP, maxHP);
     }
 
-    private void Die()
+private IEnumerator DeathRoutine()
+{
+    onDeath?.Invoke();
+
+    var movement = GetComponent<Movement>();
+if (movement != null)
+    movement.enabled = false;
+
+var col = GetComponent<Collider>();
+if (col != null)
+    col.enabled = false;
+
+
+    UnityEngine.Rigidbody rb = GetComponent<UnityEngine.Rigidbody>();
+    if (rb != null)
     {
-        onDeath?.Invoke();
-        Debug.Log("PLAYER DIED - Game Over");
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
+    }
 
-        // Simple lose condition:
-        if (!string.IsNullOrEmpty(gameOverSceneName))
-        {
-            SceneManager.LoadScene(gameOverSceneName);
-            return;
-        }
+    animator?.SetBool("Die", true);
 
-        // Fallback: freeze the game
+    yield return new WaitForSecondsRealtime(1f);
+
+    {
         Time.timeScale = 0f;
     }
-    
+}
+
+public void AddMaxHP(float amount, bool healToFull = true)
+{
+    if (amount <= 0f) return;
+
+    maxHP += amount;
+    if (healToFull)
+        currentHP = maxHP;
+
+    onHealthChanged?.Invoke(currentHP, maxHP);
+}
 
 }

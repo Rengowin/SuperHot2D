@@ -2,6 +2,7 @@ using UnityEngine;
 using static Bullet;
 public class RocketLauncher : Range
 {
+    public WeaponsEnum WeaponType => WeaponsEnum.RocketLauncher;
     float explosionRadius;
 
     public RocketLauncher(float damage, float range, float attackCooldown, float maxAmmo, float blastRadius, float bulletSpeed)

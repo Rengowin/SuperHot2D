@@ -2,6 +2,7 @@ using UnityEngine;
 using static Bullet;
 public class ShotGun : Range
 {
+    public WeaponsEnum WeaponType => WeaponsEnum.ShotGun;
     float pelletCount;
     float spreadAngle;
     public ShotGun(float bulletcount, float spreadAngle, float damage, float range, float attackCooldown, float maxAmmo, float bulletSpeed)

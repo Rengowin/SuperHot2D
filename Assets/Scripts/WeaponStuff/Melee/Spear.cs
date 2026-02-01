@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Spear : Melee
 {
+    public WeaponsEnum WeaponType => WeaponsEnum.Spear;
     float thrustRadius;
     public Spear(float damage, float range, float attackCooldown, float thrustRadius) 
     {

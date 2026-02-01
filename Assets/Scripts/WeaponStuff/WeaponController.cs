@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class WeaponController : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class WeaponController : MonoBehaviour
     Transform meleeOrigin;
 
     Vector3 aimDir = Vector3.forward;
+    public event Action<int, int> onAmmoChanged;
+    public event Action<Weapon> onWeaponChanged;
+
 
     public Weapon Current => (weapons.Count > 0) ? weapons[currentIndex] : null;
 
@@ -39,6 +43,16 @@ public class WeaponController : MonoBehaviour
         weapons.Add(weapon);
     }
 
+    void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Alpha1)) EquipIndex(0);
+    if (Input.GetKeyDown(KeyCode.Alpha2)) EquipIndex(1);
+    if (Input.GetKeyDown(KeyCode.Alpha3)) EquipIndex(2);
+    if (Input.GetKeyDown(KeyCode.Alpha4)) EquipIndex(3);
+    if (Input.GetKeyDown(KeyCode.Alpha5)) EquipIndex(4);
+    if (Input.GetKeyDown(KeyCode.Alpha6)) EquipIndex(5);
+}
+
     public void Init()
     {
         if (weapons.Count == 0)
@@ -50,15 +64,22 @@ public class WeaponController : MonoBehaviour
         currentIndex = Mathf.Clamp(startIndex, 0, weapons.Count - 1);
         Current?.Init();
         ApplyRuntimeRefs(Current);
+        NotifyAmmo();
+        onWeaponChanged?.Invoke(Current);
     }
 
     public void EquipIndex(int index)
-    {
-        if (index < 0 || index >= weapons.Count) return;
-        currentIndex = index;
-        Current?.Init();
-        ApplyRuntimeRefs(Current);
-    }
+{
+    if (index < 0 || index >= weapons.Count) return;
+
+    currentIndex = index;
+    Current?.Init();
+    ApplyRuntimeRefs(Current);
+    NotifyAmmo();
+
+    onWeaponChanged?.Invoke(Current);
+}
+
 
     public void PrimaryFire()
     {
@@ -74,7 +95,7 @@ public class WeaponController : MonoBehaviour
 
     public void Reload()
     {
-        if (Current is Range range) range.Reload();
+        if (Current is Range range) range.Reload(); NotifyAmmo();
     }
 
     private void ApplyRuntimeRefs(Weapon weapon)
@@ -88,10 +109,11 @@ public class WeaponController : MonoBehaviour
             }
 
             range.Muzzel = shootMuzzle;
-
+            
 
             if (range.ProjectilePrefab == null && defaultBulletPrefab != null)
                 range.SetProjectilePrefab(defaultBulletPrefab);
+            NotifyAmmo();
         }
         else if (weapon is Melee melee)
         {
@@ -101,6 +123,7 @@ public class WeaponController : MonoBehaviour
                 meleeOrigin = transform;
             }
             melee.MeleeOrigin = meleeOrigin;
+            onAmmoChanged?.Invoke(-1, -1); 
         }
 
     }
@@ -115,4 +138,39 @@ public class WeaponController : MonoBehaviour
             }
         }
     }
+    private void NotifyAmmo()
+{
+    if (Current is Range r)
+        onAmmoChanged?.Invoke((int)r.Ammo, (int)r.MaxAmmo);
+    else
+        onAmmoChanged?.Invoke(-1, -1); // means "no ammo weapon"
 }
+
+    public float DamageMultiplier { get; private set; } = 1f;
+
+public void AddDamageMultiplier(float amount)
+{
+    foreach (var weapon in weapons)
+    {
+        weapon.AddDamageMultiplier(amount);
+    }
+}
+
+// Prevent duplicates, unlock/add new weapon at runtime
+public void UnlockWeapon(WeaponsEnum type, WeaponStats stats)
+{
+    // If already unlocked, do nothing
+    foreach (var w in weapons)
+        if (w is IWeaponId id && id.WeaponType == type)
+            return;
+
+    Weapon newWeapon = MakeLoadOut.CreateWeapon(type, stats);
+    if (newWeapon == null) return;
+
+    weapons.Add(newWeapon);
+    Debug.Log($"Unlocked weapon: {type}");
+}
+
+
+}    
+    
