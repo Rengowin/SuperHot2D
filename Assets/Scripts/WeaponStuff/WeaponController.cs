@@ -18,6 +18,8 @@ public class WeaponController : MonoBehaviour
 
     Vector3 aimDir = Vector3.forward;
     public event Action<int, int> onAmmoChanged;
+    public event Action<Weapon> onWeaponChanged;
+
 
     public Weapon Current => (weapons.Count > 0) ? weapons[currentIndex] : null;
 
@@ -41,6 +43,14 @@ public class WeaponController : MonoBehaviour
         weapons.Add(weapon);
     }
 
+    void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Alpha1)) EquipIndex(0);
+    if (Input.GetKeyDown(KeyCode.Alpha2)) EquipIndex(1);
+    if (Input.GetKeyDown(KeyCode.Alpha3)) EquipIndex(2);
+    if (Input.GetKeyDown(KeyCode.Alpha4)) EquipIndex(3);
+}
+
     public void Init()
     {
         if (weapons.Count == 0)
@@ -51,18 +61,23 @@ public class WeaponController : MonoBehaviour
 
         currentIndex = Mathf.Clamp(startIndex, 0, weapons.Count - 1);
         Current?.Init();
-        NotifyAmmo();
         ApplyRuntimeRefs(Current);
+        NotifyAmmo();
+        onWeaponChanged?.Invoke(Current);
     }
 
     public void EquipIndex(int index)
-    {
-        if (index < 0 || index >= weapons.Count) return;
-        currentIndex = index;
-        Current?.Init();
-        NotifyAmmo();
-        ApplyRuntimeRefs(Current);
-    }
+{
+    if (index < 0 || index >= weapons.Count) return;
+
+    currentIndex = index;
+    Current?.Init();
+    ApplyRuntimeRefs(Current);
+    NotifyAmmo();
+
+    onWeaponChanged?.Invoke(Current);
+}
+
 
     public void PrimaryFire()
     {

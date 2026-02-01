@@ -83,12 +83,6 @@ if (col != null)
 
     yield return new WaitForSecondsRealtime(1f);
 
-    if (!string.IsNullOrEmpty(gameOverSceneName))
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(gameOverSceneName);
-    }
-    else
     {
         Time.timeScale = 0f;
     }

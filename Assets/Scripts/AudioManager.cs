@@ -10,6 +10,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip menuMusic;
     [SerializeField] private AudioClip gameplayMusic;
 
+    [Header("SFX")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
+    [SerializeField] private AudioClip damagedSound;
+
+    private bool gameEnded = false;
+
     void Awake()
     {
         if (Instance != null)
@@ -19,9 +27,8 @@ public class AudioManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
-        if (musicSource == null)
+        if (!musicSource)
             musicSource = GetComponent<AudioSource>();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -39,6 +46,8 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (gameEnded) return;
+
         if (scene.name == "MainMenu")
             PlayMenuMusic();
         else
@@ -47,12 +56,20 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMenuMusic()
     {
+        gameEnded = false;
         PlayMusic(menuMusic);
     }
 
     public void PlayGameplayMusic()
     {
+        gameEnded = false;
         PlayMusic(gameplayMusic);
+    }
+
+    public void StopMusic()
+    {
+        if (musicSource)
+            musicSource.Stop();
     }
 
     private void PlayMusic(AudioClip clip)
@@ -64,5 +81,29 @@ public class AudioManager : MonoBehaviour
         musicSource.clip = clip;
         musicSource.loop = true;
         musicSource.Play();
+    }
+
+    public void PlayWin()
+    {
+        gameEnded = true;
+        StopMusic();
+
+        if (sfxSource && winSound)
+            sfxSource.PlayOneShot(winSound);
+    }
+
+    public void PlayLose()
+    {
+        gameEnded = true;
+        StopMusic();
+
+        if (sfxSource && loseSound)
+            sfxSource.PlayOneShot(loseSound);
+    }
+
+    public void PlayDamaged()
+    {
+        if (sfxSource && damagedSound)
+            sfxSource.PlayOneShot(damagedSound);
     }
 }

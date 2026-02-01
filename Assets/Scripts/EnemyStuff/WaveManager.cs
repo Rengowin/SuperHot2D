@@ -55,17 +55,15 @@ public class WaveManager : MonoBehaviour
 
             Wave wave = waves[currentWaveIndex];
 
-            aliveThisWave = wave.enemyCount;
+            aliveThisWave = CountEnemiesInWave(wave);
             spawnFinished = false;
 
             onWaveChanged?.Invoke(CurrentWaveNumber, TotalWaves, wave.bossRound);
             
             spawnManager.RunWave(
-                wave.enemyCount,
-                wave.spawnDelay,
-                wave.bossRound,      
-                OnEnemyDied,         
-                OnWaveSpawnFinished  
+            wave,
+            OnEnemyDied,
+            OnWaveSpawnFinished
             );
 
             // Wait until spawner finished spawning AND all enemies died
@@ -88,4 +86,11 @@ public class WaveManager : MonoBehaviour
     {
         spawnFinished = true;
     }
+    private int CountEnemiesInWave(Wave wave)
+{
+    int total = 0;
+    if (wave?.spawns == null) return 0;
+    foreach (var s in wave.spawns) total += Mathf.Max(0, s.count);
+    return total;
+}
 }

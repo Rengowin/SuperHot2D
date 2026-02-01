@@ -189,6 +189,8 @@ GameObject:
   - component: {fileID: 6996744290706230365}
   - component: {fileID: 2251676793410572079}
   - component: {fileID: 3956331979668942620}
+  - component: {fileID: 8731826206951965009}
+  - component: {fileID: 564037160841684732}
   m_Layer: 3
   m_Name: Player 1
   m_TagString: Player
@@ -416,18 +418,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponLoadout
   weapons: {fileID: 6996744290706230365}
-  weaponType: 0
+  weaponType: 1
   weaponStats:
     damage: 10
     range: 100
     cooldown: 0.3
     ammo: 10
     bulletSpeed: 20
-    pelletCount: 0
-    spread: 0
-    explosionRadius: 0
+    pelletCount: 5
+    spread: 15
+    explosionRadius: 20
     swingAngle: 0
-    thrustRadius: 0
+    thrustRadius: 3
 --- !u!114 &3956331979668942620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,6 +447,54 @@ MonoBehaviour:
   weaponPivot: {fileID: 8333314637694805861}
   aimPlaneY: 0
   rotationSpeed: 25
+--- !u!114 &8731826206951965009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526437672555368646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e77e35e86d6f04e8374781ba6b6dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  maxHP: 100
+  currentHP: 100
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1766714710366626091, guid: fb3072d0a23bede4fb2861fd7c69d612, type: 3}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: PlayLose
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  animator: {fileID: 2938612552353518115}
+  gameOverSceneName: MainMenu
+--- !u!114 &564037160841684732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5526437672555368646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b761cb280450743b9610672eb51691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
+  contactHitCooldown: 1
+  animator: {fileID: 0}
 --- !u!1 &7873613195195601173
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +599,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 786f9a02ed72aa945a2c302a38d3696e, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
