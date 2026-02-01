@@ -35,5 +35,8 @@ public class Pistol : Range
         SpawnBullet(aimDir, projectilePrefab, init);
     }
 
-
+    public override bool TryApplyUpgrade(WeaponUpgradeType type, ModiferType modiferType, float value)
+    {
+        return base.TryApplyUpgrade(type, modiferType, value);
+    }
 }

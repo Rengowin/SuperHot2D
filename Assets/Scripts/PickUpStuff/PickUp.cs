@@ -19,8 +19,6 @@ public class PickUp : MonoBehaviour
     [SerializeField]
     float duration;
 
-    float tempSpeed;
-
     private void Awake()
     {
         player = GameObject.FindWithTag("Player");
@@ -28,19 +26,6 @@ public class PickUp : MonoBehaviour
         weaponController = player.GetComponent<WeaponController>();
         movement = player.GetComponent<Movement>();
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void PickUpItem()
     {
         switch (pickUpStats.PickUpType)

@@ -10,6 +10,14 @@ public class Movement : MonoBehaviour
     [SerializeField] private PlayerVisualController visual;
     private PhysicsController physics; private Rigidbody rb;
 
+
+    public float MoveSpeed { 
+        get { return maxSpeed; } 
+        set { maxSpeed = value; } 
+    }
+
+
+
     private Vector2 input; void Awake() 
 
     { 

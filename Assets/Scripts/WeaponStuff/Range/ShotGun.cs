@@ -28,8 +28,17 @@ public class ShotGun : Range
         Init();
     }
 
-    public int Pellets => Mathf.Max(1, Mathf.RoundToInt(pelletCount));
-    public float SpreadAngle => spreadAngle;
+    public float PelletCount
+    {
+        get => pelletCount;
+        set => pelletCount = value;
+    }
+
+    public float SpreadAngle
+    {
+        get => spreadAngle;
+        set => spreadAngle = value;
+    }
 
     Vector3 ApplySpread(Vector3 dir, float spreadAngleDeg)
     {
@@ -37,8 +46,6 @@ public class ShotGun : Range
         float pitch = Random.Range(-spreadAngleDeg, spreadAngleDeg);
         return (Quaternion.Euler(pitch, yaw, 0f) * dir).normalized;
     }
-
-
 
     public override void Shoot(Vector3 aimDir)
     {
@@ -57,6 +64,37 @@ public class ShotGun : Range
         }
     }
 
+    public override bool TryApplyUpgrade(WeaponUpgradeType type, ModiferType modiferType, float value)
+    {
+        if (base.TryApplyUpgrade(type, modiferType, value))
+            return true;
 
+        if (type == WeaponUpgradeType.BulletsPerShot)
+        {
+            if (modiferType == ModiferType.Add)
+            {
+                PelletCount += value;
+            }
+            else if (modiferType == ModiferType.Multiply)
+            {
+                PelletCount *= value;
+            }
+            return true;
+        }
 
+        if (type == WeaponUpgradeType.BulletSpread)
+        {
+            if (modiferType == ModiferType.Add)
+            {
+                SpreadAngle = Mathf.Max(0, SpreadAngle - value);
+            }
+            else if (modiferType == ModiferType.Multiply)
+            {
+                SpreadAngle = Mathf.Max(0, SpreadAngle * value);
+            }
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -16,8 +16,23 @@ public abstract class Weapon
     protected Transform origin;
 
 
-    public float Damage { get { return damage; } }
-    public float Range { get { return range; } }
+    public float Damage
+    {
+        get => damage;
+        set => damage = value;
+    }
+
+    public float Range
+    {
+        get => range;
+        set => range = value;
+    }
+
+    public float AttackCooldown
+    {
+        get => attackCooldown;
+        set => attackCooldown = value;
+    }
 
     public virtual void Init()
     {
@@ -27,4 +42,35 @@ public abstract class Weapon
     public abstract bool canAttack();
 
     public abstract void attack();
+
+    public virtual bool TryApplyUpgrade(WeaponUpgradeType type, ModiferType modiferType, float value)
+    {
+        if (type == WeaponUpgradeType.Damage)
+        {
+            if (modiferType == ModiferType.Add)
+            {
+                Damage += value;
+            }
+            else if (modiferType == ModiferType.Multiply)
+            {
+                Damage *= value;
+            }
+            return true;
+        }
+
+        if (type == WeaponUpgradeType.AttackCooldown)
+        {
+            if (modiferType == ModiferType.Add)
+            {
+                AttackCooldown -= value; // Addition reduziert die Abklingzeit
+            }
+            else if (modiferType == ModiferType.Multiply)
+            {
+                AttackCooldown *= (1f - value);
+            }
+            return true;
+        }
+
+        return false;
+    }
 }

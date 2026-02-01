@@ -16,8 +16,18 @@ public class PlayerStats : MonoBehaviour
     [Tooltip("If set, load this scene when player dies (e.g. MainMenu). Leave empty to just freeze + log.")]
     [SerializeField] private string gameOverSceneName = "";
 
-    public float MaxHP => maxHP;
-    public float HP => currentHP;
+    public float MaxHP {
+            get { return maxHP; } 
+            set {maxHP = value; }
+    }
+    public float HP {
+            get { return currentHP; }
+            set {if (value <= maxHP)
+                    currentHP = value;
+                 else
+                    currentHP = maxHP;
+            }
+    }
     public bool IsDead => currentHP <= 0f;
 
     void Awake()
@@ -61,4 +71,5 @@ public class PlayerStats : MonoBehaviour
         Time.timeScale = 0f;
     }
     
+
 }
