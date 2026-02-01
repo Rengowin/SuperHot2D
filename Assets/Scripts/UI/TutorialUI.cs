@@ -3,43 +3,37 @@ using UnityEngine;
 public class TutorialUI : MonoBehaviour
 {
     [SerializeField] private GameObject tutorialRoot;
+    [SerializeField] private float minVisibleTime = 6f; // z.B. 3 Frames × 2s
 
     private bool dismissed = false;
+    private float timer = 0f;
 
     void Awake()
     {
         if (!tutorialRoot)
             tutorialRoot = gameObject;
 
-        // Show tutorial at scene start
         tutorialRoot.SetActive(true);
         dismissed = false;
+        timer = 0f;
     }
 
     void Update()
     {
         if (dismissed) return;
 
-        // Any keyboard input
-        if (Input.anyKeyDown)
-        {
-            HideTutorial();
-            return;
-        }
+        timer += Time.deltaTime;
 
-        // Mouse click
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-        {
-            HideTutorial();
+        if (timer < minVisibleTime)
             return;
-        }
 
-        // Mouse movement
-        if (Mathf.Abs(Input.GetAxis("Mouse X")) > 0.01f ||
+        if (Input.anyKeyDown ||
+            Input.GetMouseButtonDown(0) ||
+            Input.GetMouseButtonDown(1) ||
+            Mathf.Abs(Input.GetAxis("Mouse X")) > 0.01f ||
             Mathf.Abs(Input.GetAxis("Mouse Y")) > 0.01f)
         {
             HideTutorial();
-            return;
         }
     }
 
