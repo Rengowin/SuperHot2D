@@ -5,8 +5,8 @@ public enum WeaponsEnum
     Pistol,
     ShotGun,
     RocketLauncher,
-    Swords,
+    CombinedRange,
     Spear,
-    CombinedRange
+    Swords
 }
 
