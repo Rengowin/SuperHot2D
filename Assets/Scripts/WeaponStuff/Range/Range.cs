@@ -79,6 +79,7 @@ public abstract class Range : Weapon
     if (muzzel == null) { Debug.LogError("No muzzle set"); return; }
     if (prefab == null) { Debug.LogError("No prefab"); return; }
 
+    init.damage *= damageMultiplier;
     direction = direction.normalized;
 
     var go = Object.Instantiate(prefab, muzzel.position, Quaternion.LookRotation(direction));

@@ -3,7 +3,7 @@ using static Bullet;
 
 public class AllRangeTogether:Range
 {
-    
+    public WeaponsEnum WeaponType => WeaponsEnum.CombinedRange;
     float pelletCount;
     float spreadAngle;
 

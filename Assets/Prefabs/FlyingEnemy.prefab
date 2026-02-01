@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 217103752900882860}
   - component: {fileID: 9170827476406735347}
   - component: {fileID: 7893056677760541051}
+  - component: {fileID: -3253213823698945033}
   m_Layer: 0
   m_Name: FlyingEnemy
   m_TagString: Enemy
@@ -364,3 +365,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   destroyThisObjectAfterExplode: 1
+--- !u!114 &-3253213823698945033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750686513949300021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c3132fb86369042a4bc21733d2adac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPickupDropper
+  dropChance: 0.2
+  pickupPrefabs:
+  - {fileID: 1761188010469013530, guid: 5fa306e668921d445a4252a6414d5878, type: 3}
+  - {fileID: 4593733178328109346, guid: 5bb230e8036e2344aa389ab04920a12d, type: 3}
+  spawnRadius: 0.5

@@ -2,6 +2,7 @@ using UnityEngine;
 using static Bullet;
 public class Pistol : Range
 {
+    public WeaponsEnum WeaponType => WeaponsEnum.Pistol;
 
     public Pistol(float damage, float range, float attackCooldown, float maxAmmo, float bulletSpeed)
     {

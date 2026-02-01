@@ -49,6 +49,8 @@ public class WeaponController : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Alpha2)) EquipIndex(1);
     if (Input.GetKeyDown(KeyCode.Alpha3)) EquipIndex(2);
     if (Input.GetKeyDown(KeyCode.Alpha4)) EquipIndex(3);
+    if (Input.GetKeyDown(KeyCode.Alpha5)) EquipIndex(4);
+    if (Input.GetKeyDown(KeyCode.Alpha6)) EquipIndex(5);
 }
 
     public void Init()
@@ -142,6 +144,31 @@ public class WeaponController : MonoBehaviour
         onAmmoChanged?.Invoke((int)r.Ammo, (int)r.MaxAmmo);
     else
         onAmmoChanged?.Invoke(-1, -1); // means "no ammo weapon"
+}
+
+    public float DamageMultiplier { get; private set; } = 1f;
+
+public void AddDamageMultiplier(float amount)
+{
+    foreach (var weapon in weapons)
+    {
+        weapon.AddDamageMultiplier(amount);
+    }
+}
+
+// Prevent duplicates, unlock/add new weapon at runtime
+public void UnlockWeapon(WeaponsEnum type, WeaponStats stats)
+{
+    // If already unlocked, do nothing
+    foreach (var w in weapons)
+        if (w is IWeaponId id && id.WeaponType == type)
+            return;
+
+    Weapon newWeapon = MakeLoadOut.CreateWeapon(type, stats);
+    if (newWeapon == null) return;
+
+    weapons.Add(newWeapon);
+    Debug.Log($"Unlocked weapon: {type}");
 }
 
 

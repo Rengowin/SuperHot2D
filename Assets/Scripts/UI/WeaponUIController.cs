@@ -15,7 +15,9 @@ public class WeaponUIController : MonoBehaviour
     [SerializeField] private Sprite pistolIcon;
     [SerializeField] private Sprite shotgunIcon;
     [SerializeField] private Sprite rocketIcon;
-    [SerializeField] private Sprite meleeIcon;
+    [SerializeField] private Sprite spearIcon;
+    [SerializeField] private Sprite swordsIcon;
+    [SerializeField] private Sprite combinedIcon;
 
     void Awake()
     {
@@ -49,8 +51,12 @@ public class WeaponUIController : MonoBehaviour
             weaponIcon.sprite = shotgunIcon;
         else if (weapon is RocketLauncher)
             weaponIcon.sprite = rocketIcon;
+        else if (weapon is Spear)
+            weaponIcon.sprite = spearIcon;
+        else if (weapon is Swords)
+            weaponIcon.sprite = swordsIcon;
         else
-            weaponIcon.sprite = meleeIcon;
+            weaponIcon.sprite = combinedIcon;
     }
 
     private void OnAmmoChanged(int current, int max)

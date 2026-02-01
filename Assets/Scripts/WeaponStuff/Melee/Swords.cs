@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Swords : Melee
 {
+    public WeaponsEnum WeaponType => WeaponsEnum.Swords;
     float swingAngle;
     public Swords(float damage, float range, float attackCooldown, float swingAngle)
     {

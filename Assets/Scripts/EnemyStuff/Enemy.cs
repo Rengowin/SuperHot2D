@@ -75,6 +75,7 @@ public class Enemy : MonoBehaviour
         isDying = true;
 
         Debug.Log("Enemy died");
+        GetComponent<EnemyPickupDropper>()?.TryDrop();
         onDeath?.Invoke(this);
         if (rb)
         {

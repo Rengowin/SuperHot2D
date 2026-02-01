@@ -18,4 +18,3 @@ public class EnemyDeathListener : MonoBehaviour
         onDestroyed?.Invoke();
     }
 }
-

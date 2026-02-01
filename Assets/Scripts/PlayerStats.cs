@@ -87,4 +87,16 @@ if (col != null)
         Time.timeScale = 0f;
     }
 }
+
+public void AddMaxHP(float amount, bool healToFull = true)
+{
+    if (amount <= 0f) return;
+
+    maxHP += amount;
+    if (healToFull)
+        currentHP = maxHP;
+
+    onHealthChanged?.Invoke(currentHP, maxHP);
+}
+
 }
