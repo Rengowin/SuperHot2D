@@ -22,6 +22,7 @@ public class WeaponController : MonoBehaviour
 
 
     public Weapon Current => (weapons.Count > 0) ? weapons[currentIndex] : null;
+    public List<Weapon> Weapons => weapons;
 
     public void SetShootMuzzle(Transform t) => shootMuzzle = t;
     public void SetMeleeOrigin(Transform t) => meleeOrigin = t;

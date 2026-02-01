@@ -5970,6 +5970,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927470806}
   m_CullTransparentMesh: 1
+--- !u!1 &942449205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 942449207}
+  - component: {fileID: 942449206}
+  m_Layer: 0
+  m_Name: UpgradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &942449206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942449205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87eb9796add77194eb5b2ad758b4c2a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatsUpgrades
+  upgradeStats:
+  - target: 0
+    playerType: 0
+    weaponType: 0
+    modiferType: 0
+    value: 10
+    displayName: + HP
+  - target: 0
+    playerType: 0
+    weaponType: 0
+    modiferType: 1
+    value: 0
+    displayName: x HP
+  - target: 1
+    playerType: 0
+    weaponType: 0
+    modiferType: 0
+    value: 1
+    displayName: + DMG
+  - target: 1
+    playerType: 0
+    weaponType: 0
+    modiferType: 1
+    value: 1.1
+    displayName: x DMG
+--- !u!4 &942449207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942449205}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.54769, y: 0, z: 6.1372}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &948782850
 GameObject:
   m_ObjectHideFlags: 0
@@ -15107,7 +15176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponTypes.Array.size
@@ -15147,7 +15216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[3].ammo
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[4].ammo
@@ -15211,7 +15280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[3].spread
-      value: 0
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[4].damage
@@ -15271,7 +15340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[0].pelletCount
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[1].bulletSpeed
@@ -15279,7 +15348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[1].pelletCount
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[2].bulletSpeed
@@ -15287,15 +15356,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[2].pelletCount
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[3].bulletSpeed
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[3].pelletCount
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[4].bulletSpeed
@@ -15331,7 +15400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[3].explosionRadius
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2251676793410572079, guid: d0dad7ba06e1eac4c95c338287a9837b, type: 3}
       propertyPath: weaponStats.Array.data[4].explosionRadius
@@ -15471,3 +15540,4 @@ SceneRoots:
   - {fileID: 1539989048}
   - {fileID: 32365421}
   - {fileID: 1642621437}
+  - {fileID: 942449207}

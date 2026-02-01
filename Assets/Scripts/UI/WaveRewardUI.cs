@@ -16,6 +16,9 @@ public class WaveRewardUI : MonoBehaviour
     [SerializeField] private Image unlockedIcon;
     [SerializeField] private Button continueButton;
 
+    [SerializeField] TMP_Text hpButtonText;
+    [SerializeField] TMP_Text damageButtonText;
+
     private System.Action onHp;
     private System.Action onDmg;
     private System.Action onContinue;

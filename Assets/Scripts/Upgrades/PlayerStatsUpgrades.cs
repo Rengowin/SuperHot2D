@@ -9,7 +9,6 @@ public class PlayerStatsUpgrades : MonoBehaviour
     PlayerStats playerStats;
 
     WeaponController weaponController;
-    Weapon weapon;
 
     Movement movement;
 
@@ -24,7 +23,6 @@ public class PlayerStatsUpgrades : MonoBehaviour
         playerStats = player.GetComponent<PlayerStats>();
         weaponController = player.GetComponent<WeaponController>();
         movement = player.GetComponent<Movement>();
-        weapon = weaponController.Current;
     }
 
     public void UpgradePlayerStats(PlayerUpgradeType upgradeType, ModiferType modiferType, float value)
@@ -63,13 +61,42 @@ public class PlayerStatsUpgrades : MonoBehaviour
 
     public void UpgradeWeaponStats(WeaponUpgradeType upgradeType, ModiferType modiferType, float value)
     {
-        if (weapon.TryApplyUpgrade(upgradeType, modiferType, value))
+        foreach (var weapon in weaponController.Weapons)
         {
-            Debug.Log($"Upgrade applied: {upgradeType} with {modiferType} and value {value}");
-        }
-        else
-        {
-            Debug.LogWarning($"Upgrade failed: {upgradeType} is not supported by the current weapon.");
+            if (weapon.TryApplyUpgrade(upgradeType, modiferType, value))
+            {
+                Debug.Log($"Upgrade applied to weapon: {upgradeType} with {modiferType} and value {value}");
+            }
+            else
+            {
+                Debug.LogWarning($"Upgrade failed: {upgradeType} is not supported by the weapon.");
+            }
         }
     }
+
+    public List<UpgradeStats> GetRandomUpgrades(int count)
+    {
+        List<UpgradeStats> selectedUpgrades = new List<UpgradeStats>();
+        List<UpgradeStats> availableUpgrades = new List<UpgradeStats>(upgradeStats);
+        for (int i = 0; i < count; i++)
+        {
+            if (availableUpgrades.Count == 0)
+                break;
+            int randomIndex = Random.Range(0, availableUpgrades.Count);
+            selectedUpgrades.Add(availableUpgrades[randomIndex]);
+            availableUpgrades.RemoveAt(randomIndex);
+        }
+        return selectedUpgrades;
+    }
+
+    public void ApplyUpgrade(UpgradeStats upgrade)
+    {
+        if (upgrade == null) return;
+
+        if (upgrade.Target == UpgradeTarget.Player)
+            UpgradePlayerStats(upgrade.PlayerType, upgrade.ModiferType, upgrade.Value);
+        else
+            UpgradeWeaponStats(upgrade.WeaponType, upgrade.ModiferType, upgrade.Value);
+    }
+
 }

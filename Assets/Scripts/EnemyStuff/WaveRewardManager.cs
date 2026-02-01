@@ -15,6 +15,9 @@ public class WaveRewardManager : MonoBehaviour
     [Header("Even Wave Unlocks")]
     [SerializeField] private WeaponUnlockByWave[] unlocks;
 
+    [Header("Player Upgrades Pool")]
+    [SerializeField] PlayerStatsUpgrades playerStatsUpgrades;
+
     [System.Serializable]
     public class WeaponUnlockByWave
     {
@@ -31,6 +34,7 @@ public class WaveRewardManager : MonoBehaviour
         if (!playerStats) playerStats = FindFirstObjectByType<PlayerStats>();
         if (!weaponController) weaponController = FindFirstObjectByType<WeaponController>();
         if (!rewardUI) rewardUI = FindFirstObjectByType<WaveRewardUI>();
+        if (!playerStatsUpgrades) playerStatsUpgrades = FindFirstObjectByType<PlayerStatsUpgrades>();
     }
 
     void OnEnable()
@@ -52,10 +56,21 @@ public class WaveRewardManager : MonoBehaviour
         // Odd wave => show upgrade choice
         if (completedWave % 2 == 1)
         {
+            var choices = playerStatsUpgrades.GetRandomUpgrades(2);
+
+            if (choices.Count < 2)
+            {
+                Debug.LogWarning("Not enough upgrades in pool (need at least 2).");
+                return;
+            }
+
+            var a = choices[0];
+            var b = choices[1];
+
             rewardUI.ShowUpgradePanel(
                 $"Wave {completedWave} Complete! Choose an upgrade:",
-                hpUpgrade: () => playerStats.AddMaxHP(hpUpgradeAmount, healToFull: true),
-                dmgUpgrade: () => weaponController.AddDamageMultiplier(damageUpgradeAmount)
+                hpUpgrade: () => playerStatsUpgrades.ApplyUpgrade(a),
+                dmgUpgrade: () => playerStatsUpgrades.ApplyUpgrade(b)
             );
             return;
         }
