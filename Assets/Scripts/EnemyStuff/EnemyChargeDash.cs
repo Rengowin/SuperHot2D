@@ -21,8 +21,8 @@ public class EnemyChargeDash : MonoBehaviour
     [SerializeField] private float dashCooldown = 2f;
 
     [Header("Ground Lock")]
-    [SerializeField] private bool lockY = true;     // ✅ keeps enemy from falling
-    [SerializeField] private float groundY = 0f;    // ✅ where enemy should stay
+    [SerializeField] private bool lockY = true;   
+    [SerializeField] private float groundY = 0f;  
 
     private Rigidbody rb;
     private bool isCharging;
@@ -34,10 +34,11 @@ public class EnemyChargeDash : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation;
-
-        // Optional: strongest fix if you're fully top-down
-        // rb.useGravity = false;
-        // rb.constraints |= RigidbodyConstraints.FreezePositionY;
+        if (player == null)
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null) player = p.transform;
+        }
     }
 
     void Update()
