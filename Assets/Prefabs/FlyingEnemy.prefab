@@ -339,9 +339,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyChargeDash
   player: {fileID: 0}
   triggerDistance: 15
-  chargeTime: 2
-  dashSpeed: 15
-  stopDistance: 0.2
+  chargeTime: 4
+  dashSpeed: 10
+  stopDistance: 0.5
   dashCooldown: 4
   lockY: 1
   groundY: 0
